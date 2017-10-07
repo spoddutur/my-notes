@@ -55,7 +55,10 @@ Following diagram depicts the same:
 - Bound to the specific structure of the knowledge source assumed to be known a-priori.
 - Highly restricted by the scope of the knowledge source (WordNet or wikipedia in this case).
 - This method may not detect the different senses for ambiguous keywords. For example, for the word “bass” which could mean "fish" or "music" based on user context. 
-Next, Iam going to talk about a more generic approach to expand the query which addresses some of the disadvantages mentioned above.. (continued in [part3](https://spoddutur.github.io/my-notes/semantic-search-3))
+
+
+### 3.8 Solution2:
+A more generic approach to address some of the above mentione disadvantages is [here](https://spoddutur.github.io/my-notes/semantic-search-3)
 
 ### References:
 - [https://www.redlinels.com/hypernyms-and-hyponyms/](https://www.redlinels.com/hypernyms-and-hyponyms/)
