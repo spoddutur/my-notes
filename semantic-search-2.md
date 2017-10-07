@@ -3,7 +3,7 @@
 This blog is continuation of [part1](https://spoddutur.github.io/my-notes/semantic-search-1)..
 So far, we have covered:
 1. How traditional keyword search works and how it falls behind in capturing user intent
-2. The challenges for semantic search
+2. We also saw the challenges in capturing the intent of the searcher
 
 In this blog, am going to talk about addressing one of the challenges i.e., Vocabulary Problem. 
 
@@ -36,9 +36,9 @@ Following diagram depicts the same:
 - Step4 - **Expanded Query:** `Name or list the football Soccer clubs in EEFA`
 
 ### 3.5 Advantages of semantic search over traditional keyword search:
-- Tradional keyword search will not be able to understand the difference between: USA Players in Catalan basket team Vs Catalan Palyers in USA teams. 
-- Better Recall by using class hierarchies and rules. For example, a query for water sports in Spain would return results in scuba diving, windsurf and other subclasses, in Cádiz, Málaga, Almería and other Spanish locations
-- Better precision by reducing polysemic ambiguities using instance labels and classifications of concepts and documents
+- Tradional keyword search will not be able to understand the difference between: `USA Players in Catalan basket team Vs Catalan Palyers in USA teams`. Such cases are not a problem for semantic search.
+- **Better Recall** by using class hierarchies and rules. For example, a query for water sports in Spain would return results in scuba diving, windsurf and other subclasses, in Cádiz, Málaga, Almería and other Spanish locations
+- **Better precision** by reducing polysemic ambiguities using instance labels and classifications of concepts and documents
 
 ### 3.6 Some sample queries to realise the potential of Semantic search:
 - Query-1 List the team names in EEFA
@@ -56,7 +56,7 @@ Following diagram depicts the same:
 - Highly restricted by the scope of the knowledge source (WordNet or wikipedia in this case).
 - For a query like “bass”, this method may not detect the different senses for ambiguous keywords like: _dbpedia-owl:Fish, dbpedia-owl:Instrument, dbpedia-owl:instrument, dbpedia-owl:voice, dbpedia-owl:partner, dbpedia-owl:note, dbpedia-owl:Musical, dbpedia-owl:lowest etc_
 
-Next, Iam going to talk about a more generic approach to expand the query.. (continued in [part3](https://spoddutur.github.io/blog/semantic-search-3))
+Next, Iam going to talk about a more generic approach to expand the query which addresses some of the disadvantages mentioned above.. (continued in [part3](https://spoddutur.github.io/my-notes/semantic-search-3))
 
 ### References:
 - [https://www.redlinels.com/hypernyms-and-hyponyms/](https://www.redlinels.com/hypernyms-and-hyponyms/)
