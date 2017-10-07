@@ -2,11 +2,11 @@
 
 Semantic Search understands the intent of the searcher and the contextual meaning of search keywords (or search terms) to generate more relevant results thereby, improves accuracy of the search.
 In this blog, I'll cover following topics:
-1. Compare the traditional keyword search with semantic search
-2. Challenges in semantic search
-3. Solution1 - How to capture user intent
-4. Solution2 - A more generic approach for capturing user intent
-5. Conclusion
+1. **Compare the traditional keyword search with semantic search**
+2. **Challenges in semantic search**
+3. **Solution1 - How to capture user intent**
+4. **Solution2 - A more generic approach for capturing user intent**
+5. **Conclusion**
 
 ## 1. Traditional Method for Document Retrieval:
 Searching is done in four stages in classical search engines:
