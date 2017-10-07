@@ -45,7 +45,7 @@ Term mismatch is the most concerning problem for effective information retrieval
 Above listed items are some of the challenges which leads to term mismatch and thereby effect search efficeiency.
 
 ## Continuation in part2..
-So far, we've seen how traditional search fails in retrieving documents with similar context and the challenges in capturing user intent. Please find continuation of this i.e., part2 which covers the solutions to perform contextual search [here](https://spoddutur.github.io/my-notes/semantic-search-2)
+So far, we've seen how traditional search fails in retrieving documents with similar context and the challenges in capturing user intent. Please find continuation of this, which covers the solutions to perform contextual search [here](https://spoddutur.github.io/my-notes/semantic-search-2)
 
 ### References:
 - [https://www.redlinels.com/hypernyms-and-hyponyms/](https://www.redlinels.com/hypernyms-and-hyponyms/)
