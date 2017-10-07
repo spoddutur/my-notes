@@ -44,8 +44,8 @@ Example: ![image](https://user-images.githubusercontent.com/22542670/31303800-49
 Next, Iam going to talk about addressing Vocabulary problem. (continued in [part2](https://spoddutur.github.io/blog/semantic-search-2))
 
 ### References:
-- https://www.redlinels.com/hypernyms-and-hyponyms/
-- https://www.thoughtco.com/what-is-a-meronym-1691308
-- https://www.thoughtco.com/what-is-a-meronym-1691308
-- http://thescipub.com/PDF/jcssp.2015.361.371.pdf
-- http://ceur-ws.org/Vol-992/paper3.pdf
+- [https://www.redlinels.com/hypernyms-and-hyponyms/](https://www.redlinels.com/hypernyms-and-hyponyms/)
+- [https://www.thoughtco.com/what-is-a-meronym-1691308](https://www.thoughtco.com/what-is-a-meronym-1691308)
+- [https://www.thoughtco.com/what-is-a-meronym-1691308](https://www.thoughtco.com/what-is-a-meronym-1691308)
+- [http://thescipub.com/PDF/jcssp.2015.361.371.pdf](http://thescipub.com/PDF/jcssp.2015.361.371.pdf)
+- [http://ceur-ws.org/Vol-992/paper3.pdf](http://ceur-ws.org/Vol-992/paper3.pdf)
