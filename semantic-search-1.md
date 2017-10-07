@@ -40,8 +40,10 @@ Term mismatch is the most concerning problem for effective information retrieval
 5. **Meronymy and Holonym:**
 - A meronym is a word that denotes a part or member of something. 
 - The opposite of a meronym is a holonym. 
-- For example, finger is meronym of hand and hand is the homonym of finger 
+- For example, finger is meronym of hand and hand is the homonym of finger
+Above listed items are some of the challenges which leads to term mismatch and thereby effect search efficeiency.
 
+## Continuation in part2..
 So far, we've seen how traditional search fails in retrieving documents with similar context and the challenges in capturing user intent. Please find continuation of this i.e., part2 which covers the solutions to perform contextual search [here](https://spoddutur.github.io/my-notes/semantic-search-2)
 
 ### References:
