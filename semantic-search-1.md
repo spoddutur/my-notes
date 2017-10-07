@@ -41,6 +41,7 @@ Term mismatch is the most concerning problem for effective information retrieval
 - A meronym is a word that denotes a part or member of something. 
 - The opposite of a meronym is a holonym. 
 - For example, finger is meronym of hand and hand is the homonym of finger
+
 Above listed items are some of the challenges which leads to term mismatch and thereby effect search efficeiency.
 
 ## Continuation in part2..
