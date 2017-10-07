@@ -2,15 +2,18 @@
 
 This blog is continuation of [part2](https://spoddutur.github.io/my-notes/semantic-search-2).. So far, we have covered:
 1. How traditional keyword search works and how it falls behind in capturing user intent
-2. The challenges for semantic search
+2. We also saw the challenges in capturing the intent of the searcher and
 3. Solution1 - How to capture user intent
 
 In this blog, we are going to discuss a more generic solution for capturing user intent
 
 ## 4. Solution2 - A more generic approach for capturing user intent
-In earlier method, for a given set of words in user query, we relied on WordNet vocabulary to add synonyms and generate expanded query. In this method, we don't rely on any such dictionary.
+- **Common point between Soltuion1 and Solution2:** They both expand user query with semantic synonyms. 
+- **Difference**: In Solution1, for a given set of words in user query, we relied on WordNet vocabulary to add synonyms and generate expanded query. In Solution2, we don't rely on any such dictionary to get semantic synonyms. Let's see how its done below.
+- **Assumption:** Assuming that data is stored as [linked data](http://linkeddata.org/)
 
-## 4.1 Generic Query Expansion via Mapping keywords to LinkedData Resources
+## 4.1 Generic approach to get Semantic Synonyms
+### 4.1.1 Generic Query Expansion via Mapping keywords to LinkedData Resources
 As the title suggests, in this generic method, to expand query we map user keywords to linkeddata resources and get its corresponding semantic synonyms from owl:class and rdf:property labels of the Dataset.
 
 ## 4.1.1 Algorithm to get semantic synonyms:
