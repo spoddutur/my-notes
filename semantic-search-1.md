@@ -1,6 +1,6 @@
 # Information Retrieval via SemanticSearch on LinkedData
 
-Semantic Search understands the intent of the searcher and the contextual meaning of terms to generate more relevant results thereby, improves accuracy of the search.
+Semantic Search understands the intent of the searcher and the contextual meaning of search keywords (or search terms) to generate more relevant results thereby, improves accuracy of the search.
 In this blog, I'll cover following topics:
 1. Compare the traditional keyword search with semantic search
 2. Challenges in semantic search
@@ -8,7 +8,7 @@ In this blog, I'll cover following topics:
 4. Solution2 - A more generic approach for capturing user intent
 5. Conclusion
 
-## Traditional Method for Document Retrieval:
+## 1. Traditional Method for Document Retrieval:
 Searching is done in four stages in classical search engines:
 1. *Document indexing:*  Simply index documents :)
 2. *Term weighting:* Importance of the terms used within the document are calculated with the help of term frequency.
@@ -19,7 +19,7 @@ Searching is done in four stages in classical search engines:
 - Search keywords must be precise
 - Document with similar context but different term won’t be retrieved
 
-Challenges in Semantic Search:
+## 2. Challenges in Semantic Search:
 Term mismatch is the most concerning problem for effective information retrieval. In that, there are multiple kinds of problems namely:
 1. **Vocabulary problem:** 
 - The words on which the documents are indexed (vs) the words in user query are not same
@@ -41,7 +41,7 @@ Example: ![image](https://user-images.githubusercontent.com/22542670/31303800-49
 - The opposite of a meronym is a holonym. 
 - For example, finger is meronym of hand and hand is the homonym of finger 
 
-Next, Iam going to talk about addressing Vocabulary problem. (continued in [part2](https://spoddutur.github.io/blog/semantic-search-2))
+So far, we've seen how traditional search fails in retrieving documents with similar context and the challenges in capturing user intent. Please find continuation of this i.e., part2 which covers the solutions to perform contextual search [here](https://spoddutur.github.io/blog/semantic-search-2)
 
 ### References:
 - [https://www.redlinels.com/hypernyms-and-hyponyms/](https://www.redlinels.com/hypernyms-and-hyponyms/)
