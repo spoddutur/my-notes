@@ -33,8 +33,9 @@ Term mismatch is the most concerning problem for effective information retrieval
 - Decreases Precision of retrieval.
 4. **Hypernymy and Hyponymy:**
 - We can place a hypernym and its hyponyms in a hierarchy
-- The more general hypernym above the hierarchy and the more specific hyponyms below as shown in the picture below
-Example: ![image](https://user-images.githubusercontent.com/22542670/31303800-491fabb2-ab31-11e7-9ffb-d91b0d55a1eb.png)
+- The more general hypernym above the hierarchy and the more specific hyponyms below as shown in the picture below:
+
+![image](https://user-images.githubusercontent.com/22542670/31303800-491fabb2-ab31-11e7-9ffb-d91b0d55a1eb.png)
 
 5. **Meronymy and Holonym:**
 - A meronym is a word that denotes a part or member of something. 
