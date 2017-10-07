@@ -1,6 +1,6 @@
 # Information Retrieval via SemanticSearch on LinkedData
 
-Semantic Search understands the intent of the searcher and the contextual meaning of search keywords (or search terms) to generate more relevant results thereby, improves accuracy of the search.
+Semantic Search understands the intent of the searcher via the contextual meaning of search keywords to generate more relevant results, thereby, improves accuracy of the search.
 In this blog, I'll cover following topics:
 1. **Compare the traditional keyword search with semantic search**
 2. **Challenges in semantic search**
