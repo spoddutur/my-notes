@@ -19,10 +19,10 @@ There are 2 steps involved here:
 2. Expand the original query with suitable words that best capture the actual user intent 
 
 ### 3.3 How to expand the original query with suitable words? 
-1. User inputs query in natural language
-2. Use tools like StanfordParser to identify the noun phrases and other grammar in the query:
+1. User inputs query in natural language.
+2. Use tools like StanfordParser to identify the noun phrases and other grammar in the query.
 3. Related synonym sets of various words in the query are also obtained using Word Net API.
-4. Add these words to the original query and form the new quer
+4. Add these words to the original query and form the new query.
 5. The queries formed will be more refined and are sent to Search API which fetches the results related to the user query.
 Following diagram depicts the same:
 ![image](https://user-images.githubusercontent.com/22542670/31303807-92da66c0-ab31-11e7-9078-6fb8d5626db8.png)
@@ -54,8 +54,7 @@ Following diagram depicts the same:
 - These approaches are typically based on a single knowledge source such as WordNet or Wikipedia 
 - Bound to the specific structure of the knowledge source assumed to be known a-priori.
 - Highly restricted by the scope of the knowledge source (WordNet or wikipedia in this case).
-- For a query like “bass”, this method may not detect the different senses for ambiguous keywords like: _dbpedia-owl:Fish, dbpedia-owl:Instrument, dbpedia-owl:instrument, dbpedia-owl:voice, dbpedia-owl:partner, dbpedia-owl:note, dbpedia-owl:Musical, dbpedia-owl:lowest etc_
-
+- This method may not detect the different senses for ambiguous keywords. For example, for the word “bass” which could mean "fish" or "music" based on user context. 
 Next, Iam going to talk about a more generic approach to expand the query which addresses some of the disadvantages mentioned above.. (continued in [part3](https://spoddutur.github.io/my-notes/semantic-search-3))
 
 ### References:
