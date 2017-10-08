@@ -22,7 +22,7 @@ As the title suggests, in this generic method, to expand query we map user keywo
 
 **Labelling Properties:** We have chosen a set of labelling properties, i.e. properties whose values are expected to be literals which might be worthwhile in identifying distinct concepts. Ex: _rdfs:Label, foaf:name, dc:title, skos:prefLabel, skos:altLabel, fb:type.object.name_
 
-**Method:** In order to find representative concepts we construct from w an expanded set of keywords, Ew that improve the chance of finding the most fitting concept in the target vocabulary according to its labelling (under the Labelling Properties).
+**Method:** In order to find representative concepts, we construct from w (i.e., given keyword) an expanded set of keywords, Ew that improve the chance of finding the most fitting concept in the target vocabulary according to its labelling (under the Labelling Properties).
 
 ## 4.1.1 Algorithm to get semantic synonyms:
 For every keyword w in user query, if an entity E exists for w in Dataset, then to get its semantic synonyms, explore the neighbours N of E such that:
