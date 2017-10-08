@@ -32,6 +32,9 @@ For every keyword w in user query, if a resource R exists for w in Dataset, then
 ### Example walk-through:
 For userquery "Honda", if there is a resource name "Honda" in the dataset as shown in the picture below, this is how we find its semantic synonyms:
 1. Check the one-hop neighbouring resources associated to "Honda" one-by-one like dbo:Automobile, dbo:engine, dbo:vehicle, dbo:organisation, Tokyo, 198561, 1.19E11 etc
+
+![image](https://user-images.githubusercontent.com/22542670/31314127-204e2e26-ac16-11e7-8d4f-eef86c9a5fe8.png)
+
 2. According to the algorithm, there are two conditions to check.
 3. Condition1: The relation between "Honda" and the neighbour should be one of the relations mentioned in LabellingProperties.
 4. Condition2: The type of neighbouring resource should be either owl:class or rdf:Property
@@ -41,8 +44,6 @@ For userquery "Honda", if there is a resource name "Honda" in the dataset as sho
 8. Similarly, dbo:engine and dbo:vehicle are of type rdf:property and are linked to Honda via LabellingProperties. So, they are also considered as semantic synonyms.
 9. **Resulted semantic synonyms for Honda are:** Automotive, organisation, vehicle and engine. 
 (Note: This is just a curated example to get an idea)
-
-![image](https://user-images.githubusercontent.com/22542670/31314127-204e2e26-ac16-11e7-8d4f-eef86c9a5fe8.png)
 
 ### 4.1.2 Examples:
 UserQuery and its corresponding semantic synonyms found by this approach:
