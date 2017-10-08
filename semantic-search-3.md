@@ -20,7 +20,7 @@ As the title suggests, in this generic method, to expand query we map user keywo
 
 **Input Dataset:** The dataset we operate on consists of a set of resources, R, stored as Linked Data,  where every resource R has a set of properties used to denote specific relationships between resources.
 
-**Labelling Properties:** We have chosen a set of labelling properties, i.e. properties whose values are expected to be literals which might be worthwhile in identifying distinct concepts. Ex: _rdfs:Label, foaf:name, dc:title, skos:prefLabel, skos:altLabel, fb:type.object.name_. (Please refer to Appendix to know how labelling properties are chosen for a given dataset)
+**Labelling Properties:** We have chosen a set of labelling properties, i.e. properties whose values are expected to be literals which might be worthwhile in identifying distinct concepts. Ex: _rdfs:Label, foaf:name, dc:title, skos:prefLabel, skos:altLabel, fb:type.object.name_.
 
 **Method:** In order to find representative concepts, we construct from w (i.e., given keyword) an expanded set of keywords, Ew that improve the chance of finding the most fitting concept in the target vocabulary according to its labelling (under the Labelling Properties).
 
@@ -29,7 +29,10 @@ For every keyword w in user query, if a resource R exists for w in Dataset, then
 - N is of type owl:class or rdf:property
 - N is related to entity R via predefined Labelling relations.
 
-The below picture illustrates how this computation happens for user query "Honda". Pick the neighbours who are related to Honda through one go the labelling relations. Result: Automotive, organisation, vehicle and engine as semantic synonyms.
+The below picture illustrates how this computation happens for user query "Honda". Pick the neighbours who are related to Honda through one of the labelling relations and they should be of type owl:class or rdfs:property. 
+
+Resulted semantic synonyms: Automotive, organisation, vehicle and engine. 
+(Note: This is just a curated example to get an idea)
 
 ![image](https://user-images.githubusercontent.com/22542670/31314127-204e2e26-ac16-11e7-8d4f-eef86c9a5fe8.png)
 
@@ -44,9 +47,6 @@ UserQuery and its corresponding semantic synonyms found by this approach:
 This generic approach uses semantic similarity to expand query. These expanded sets are more general than ‘synsets’ (sets of synonyms within dictionary-oriented terms) in both scope, including a huge potential range of named entities, and in the flexibility of the semantic relationships covered.
 
 **Hybrid approach:** In general, a multi-strategy approach is recommended where this generic approach is used only after the lexical expansion with WordNet failed to give desired result.
-
-## 6. Appendix:
-### 6.1 How are Labelling properties chosen for a given dataset
 
 ## References:
 - [http://dbpedia.org/page/Honda](http://dbpedia.org/page/Honda)
