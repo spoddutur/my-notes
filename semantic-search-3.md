@@ -13,7 +13,7 @@ In this blog, we are going to discuss a more generic solution for capturing user
 - **Assumption:** Assuming that data is stored as [linked data](http://linkeddata.org/)
 
 ## 4.1 Generic approach to get Semantic Synonyms
-### 4.1.1 Generic Query Expansion via Mapping keywords to LinkedData Resources
+**Generic Query Expansion via Mapping keywords to LinkedData Resources:**
 As the title suggests, in this generic method, to expand query we map user keywords to linkeddata resources and get its corresponding semantic synonyms from owl:class and rdf:property labels of the Dataset.
 
 **Goal:** Given a keyword w, find representative resources in Linked Data.
@@ -38,6 +38,7 @@ UserQuery and its corresponding semantic synonyms found by this approach:
 
 ## 5. Conclusion: 
 This generic approach uses semantic similarity to expand query. These expanded sets are more general than ‘synsets’ (sets of synonyms within dictionary-oriented terms) in both scope, including a huge potential range of named entities, and in the flexibility of the semantic relationships covered.
+
 **Hybrid approach:** In general, a multi-strategy approach is recommended where this generic approach is used only after the lexical expansion with WordNet failed to give desired result.
 
 ## References:
