@@ -25,12 +25,12 @@ As the title suggests, in this generic method, to expand query we map user keywo
 **Method:** In order to find representative concepts, we construct from w (i.e., given keyword) an expanded set of keywords, Ew that improve the chance of finding the most fitting concept in the target vocabulary according to its labelling (under the Labelling Properties).
 
 ## 4.1.1 Algorithm to get semantic synonyms:
-For every keyword w in user query, if an entity E exists for w in Dataset, then to get its semantic synonyms, explore the neighbours N of E such that:
+For every keyword w in user query, if a resource R exists for w in Dataset, then to get its semantic synonyms, explore the neighbours N of R such that:
 - N is of type owl:class or rdf:property
-- N is related to entity E via predefined Labelling relations.
+- N is related to entity R via predefined Labelling relations.
 
 ### 4.1.2 Examples:
-UserQuery and its corresponding semantic synonyms:
+UserQuery and its corresponding semantic synonyms found by this approach:
 - *honda*: dbpedia-owl:automotive, dbpedia-owl:organisation, dbpedia-owl:vehicle and dbpedia-owl:engine
 - *spacecraft*: dbpedia-owl:spacecraft, dbpedia-owl:satellite, dbpedia-owl:missions and dbpedia-owl: Rocket
 - *wife*:	dbpedia-owl:spouse, dbpedia-owl:person, dbpedia-owl:family and dbpedia-owl:sex
