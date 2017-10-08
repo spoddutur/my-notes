@@ -43,8 +43,12 @@ UserQuery and its corresponding semantic synonyms found by this approach:
 - *wife*:	dbpedia-owl:spouse, dbpedia-owl:person, dbpedia-owl:family and dbpedia-owl:sex
 - *bass*:	dbpedia-owl:fish, dbpedia-owl:instrument, dbpedia-owl:note and dbpedia-owl:musical
 
+### 4.1.3 Advantages:
+- **Better Recall** by using class hierarchies and rules. For example, a query for water sports in Spain would return results in scuba diving, windsurf and other subclasses, in Cádiz, Málaga, Almería and other Spanish locations
+- **Better precision** by reducing polysemic ambiguities using instance labels and classifications of concepts and documents
+
 ## 5. Conclusion: 
-This generic approach uses semantic similarity to expand query. These expanded sets are more general than ‘synsets’ (sets of synonyms within dictionary-oriented terms) in both scope, including a huge potential range of named entities, and in the flexibility of the semantic relationships covered.
+This generic approach uses semantic similarity to expand query. These expanded sets are more general than ‘synsets’ (sets of synonyms within dictionary-oriented terms) in terms of both, including a huge potential range of named entities and in the flexibility of the semantic relationships covered.
 
 **Hybrid approach:** In general, a multi-strategy approach is recommended where this generic approach is used only after the lexical expansion with WordNet failed to give desired result.
 
