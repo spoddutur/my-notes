@@ -36,9 +36,7 @@ Following diagram depicts the same:
 - Step4 - **Expanded Query:** `Name or list the football Soccer clubs in EEFA`
 
 ### 3.5 Advantages of semantic search over traditional keyword search:
-- Tradional keyword search will not be able to understand the difference between: `USA Players in Catalan basket team Vs Catalan Palyers in USA teams`. Such cases are not a problem for semantic search.
-- **Better Recall** by using class hierarchies and rules. For example, a query for water sports in Spain would return results in scuba diving, windsurf and other subclasses, in Cádiz, Málaga, Almería and other Spanish locations
-- **Better precision** by reducing polysemic ambiguities using instance labels and classifications of concepts and documents
+Tradional keyword search will not be able to understand the difference between: `USA Players in Catalan basket team Vs Catalan Palyers in USA teams`. Such cases are not a problem for semantic search.
 
 ### 3.6 Some sample queries to realise the potential of Semantic search:
 - Query-1 List the team names in EEFA
