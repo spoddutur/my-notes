@@ -16,17 +16,20 @@ In this blog, we are going to discuss a more generic solution for capturing user
 ### 4.1.1 Generic Query Expansion via Mapping keywords to LinkedData Resources
 As the title suggests, in this generic method, to expand query we map user keywords to linkeddata resources and get its corresponding semantic synonyms from owl:class and rdf:property labels of the Dataset.
 
+**Goal:** Given a keyword w, find representative resources in Linked Data.
+
+**Input Dataset:** The dataset we operate on consists of a set of resources, R, stored as Linked Data,  where every resource R has a set of properties used to denote specific relationships between resources.
+
+**Labelling Properties:** We have chosen a set of labelling properties, i.e. properties whose values are expected to be literals which might be worthwhile in identifying distinct concepts. 
+
+**Method:** In order to find representative concepts we construct from w an expanded set of keywords, Ew that improve the chance of finding the most fitting concept in the target vocabulary according to its labelling (under the Labelling Properties).
+
 ## 4.1.1 Algorithm to get semantic synonyms:
 For every keyword w in user query, if an entity E exists for w in Dataset, then to get its semantic synonyms, explore the neighbours N of E such that:
 - N is of type owl:class or rdf:property
 - N is related to entity E via predefined Labelling relations.
-- **Labelling relations =** {rdfs:Label, owl:sameAs, foaf:name, dc:title, rdfs:subClassOf, skos:prefLabel, skos:altLabel, rdfs:range, dbo:product, rdf:type}
 
-### 4.1.2 Example:
-The below picture illustrates how this computation happens for user query Honda. Pick the neighbours who are related to Honda through one go the labelling relations. Result: Automotive, organisation, vehicle and engine as semantic synonyms.
-![image](https://user-images.githubusercontent.com/22542670/31304227-adc2ba42-ab3a-11e7-9acc-665e1f7be381.png)
-
-### 4.1.3 Some more examples:
+### 4.1.2 Examples:
 UserQuery and its corresponding semantic synonyms:
 - *honda*: dbpedia-owl:automotive, dbpedia-owl:organisation, dbpedia-owl:vehicle and dbpedia-owl:engine
 - *spacecraft*: dbpedia-owl:spacecraft, dbpedia-owl:satellite, dbpedia-owl:missions and dbpedia-owl: Rocket
