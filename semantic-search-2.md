@@ -21,18 +21,18 @@ There are 2 steps involved here:
 ### 3.3 How to expand the original query with suitable words? 
 1. User inputs query in natural language.
 2. Use tools like StanfordParser to identify the noun phrases and other grammar in the query.
-3. Related synonym sets of various words in the query are also obtained using Word Net API.
+3. Related synonym sets of various words in the query are also obtained from Ontology and Word Net API.
 4. Add these words to the original query and form the new query.
 5. The queries formed will be more refined and are sent to Search API which fetches the results related to the user query.
 Following diagram depicts the same:
-![image](https://user-images.githubusercontent.com/22542670/31303807-92da66c0-ab31-11e7-9078-6fb8d5626db8.png)
+![image](https://user-images.githubusercontent.com/22542670/31322951-d8b3ed96-acbd-11e7-94f4-3c7136ca5a38.png)
 
 ### 3.4 Example run
 
 - Step 1 - **User Query:** `name of football clubs in EEFA`
 - Step 2 - **Parsed words for this user query using Stanford Parser:**   
 ![image](https://user-images.githubusercontent.com/22542670/31304026-1f1d62e6-ab36-11e7-9245-bb212d4dae81.png)
-- Step 3 - **Word Net Synonym words:** `list, soccer`
+- Step 3 - **Word Net and Ontology Synonym words:** `list, soccer`
 - Step4 - **Expanded Query:** `Name or list the football Soccer clubs in EEFA`
 
 ### 3.5 Advantages of semantic search over traditional keyword search:
