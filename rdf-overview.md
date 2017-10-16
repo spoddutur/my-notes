@@ -55,11 +55,13 @@ Similarly, a separate resources table is used to store long URIs.
 Applications typically have access patterns in which certain subjects and/or properties are accessed together. For example, a graph of data about persons might have many occurrences of objects with properties name, address, phone, gender that are referenced together. Using knowledge of these access patterns to influence the underlying database storage structures can provide a performance benefit.
 ### 4.1 Property-class table:
 We could potentially cluster properties that are commonly accessed together and store it in a separate table as shown below:
+
+
 ![image](https://user-images.githubusercontent.com/22542670/31597024-ba147c24-b263-11e7-8118-f051c17423cf.png)
 
-- **Advantages:**
- - Note that property tables offer a small storage savings because the property URI is not stored in the table, and for clustered property tables, the subject is only stored once. 
- - For some properties, the datatype of the object value will be fixed and known. It may be specified as a property range constraint. Property tables can leverage this knowledge by, when possible, making the underlying database column for the property value match the property type1. This may enable the database to better optimise the storage and searching of the column.
+**Advantages:** 
+- Note that property tables offer a small storage savings because the property URI is not stored in the table, and for clustered property tables, the subject is only stored once. 
+- For some properties, the datatype of the object value will be fixed and known. It may be specified as a property range constraint. Property tables can leverage this knowledge by, when possible, making the underlying database column for the property value match the property type1. This may enable the database to better optimise the storage and searching of the column.
 
 
 ## 5. Performance evaluation
