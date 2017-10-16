@@ -68,7 +68,8 @@ We could potentially cluster properties that are commonly accessed together and 
 A synthetic database of 10,000 reified RDF statements was generated and stored in two different formats. In the first case, the reified statement was stored in an optimised form as a property-class table. In the second case, the reified statement was stored unoptimised as RDF triples, i.e., each reified statement was stored as four RDF statements. Consequently, the first table contained 10,000 rows while the second table contained 40,000 rows.
 Each test was run four times with different random number seeds and three different test sizes were run of 200, 1000, 5000 retrievals. 
 For a small number of retrievals, the optimised format shows a large improvement between the first and fourth run. We attribute this to caching effects that decrease with larger numbers of retrievals. The speed-up for large numbers of retrievals exceeds our expectations. This may be due to database caching effects. Since the optimised table is smaller, it is possible to cache a larger percentage of the entire table which reduces the number of relatively slow disk seek operations.
+
 ![image](https://user-images.githubusercontent.com/22542670/31597550-9aee6f82-b266-11e7-852f-1a6b819a1222.png)
 
 # References: 
-(https://www.cs.uic.edu/~ifc/SWDB/proceedings.pdf)[https://www.cs.uic.edu/~ifc/SWDB/proceedings.pdf]
+[https://www.cs.uic.edu/~ifc/SWDB/proceedings.pdf](https://www.cs.uic.edu/~ifc/SWDB/proceedings.pdf)
