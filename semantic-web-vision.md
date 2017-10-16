@@ -7,8 +7,8 @@ The perspective of data as KNOWLEDGE was a critical movement in the world of Big
 ## 1. History
 ### The emergence of a “Web of Data”:
 The `Web of Data` has undergone rampant growth with the publication of large datasets – often as Linked Data - by public institutions around the world.  Varied range of players such as crowd sourcing projects like dbpedia, web companies like WWW, schema.org, open-data publishers like data.gov, data.worldbank.org have contributed in publishing open data. This development paved way for mainly two things: 
-- Semantic Web technologies and 
-- Ontology: Standard vocabularies to describe semantics of the data that helped in exposing, sharing and connecting data.
+- **Semantic Web technologies** and 
+- **Ontology:** Standard vocabularies to describe semantics of the data that helped in exposing, sharing and connecting data.
 
 ### 1.1 Semantic Web Technologies:
 Accessing and consuming data on the Web should not require end users to be aware of where to find the data (which datasets) and how it is represented. This has thrust Semantic technologies into limelight.
