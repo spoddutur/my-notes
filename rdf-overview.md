@@ -21,7 +21,7 @@ Any resource can be associated with any property or type irrespective of its typ
 
 ### 3.1 XML storage
 A naïve approach might be to map the RDF data to XML and rely on the efficient storage of XML.
-**Drawback:** expensive XML serialisations  which in turn makes retrieval complex.
+- **Drawback:** expensive XML serialisations  which in turn makes retrieval complex.
 
 ### 3.2. Relational/Object DB
 Many RDF systems have used relational or object databases for persistent storage and retrieval. For relational databases, the schema consisted of 3 tables: statement table, a literals table and a resources table.
@@ -29,14 +29,14 @@ Many RDF systems have used relational or object databases for persistent storage
 
 To distinguish literal objects from resource URIs, two columns were used. The literals table contained all literal values and the resources table contained all resource URIs in the graph. 
 
-**Advantages:** This schema was very efficient in space as multiple occurrences of the same resource URI or literal value were only stored once. 
-**Drawbacks:** However, every find operation required multiple joins between the statement table and the literals table or the resources table.
+- **Advantages:** This schema was very efficient in space as multiple occurrences of the same resource URI or literal value were only stored once. 
+- **Drawbacks:** However, every find operation required multiple joins between the statement table and the literals table or the resources table.
 
 ### 3.3 BerkeleyDB format
 In this approach, each statement i.e., SPO tuple, was stored three times: once indexed by subject, once by predicate and once by object.
-**Advantages:** Access becomes significantly faster than graphs stored in relational
+- **Advantages:** Access becomes significantly faster than graphs stored in relational
 databases.
-**Disadvantages:** Obviously, this schema is a trade-off between space and response-time.
+- **Disadvantages:** Obviously, this schema is a trade-off between space and response-time.
 
 ### 3.4 Hybrid approach
 Drawing on experience from the denormalized schema in which resource URIs and simple literal values are stored directly in the statement table. 
@@ -57,9 +57,9 @@ Applications typically have access patterns in which certain subjects and/or pro
 We could potentially cluster properties that are commonly accessed together and store it in a separate table as shown below:
 ![image](https://user-images.githubusercontent.com/22542670/31597024-ba147c24-b263-11e7-8118-f051c17423cf.png)
 
-**Advantages:**
-- Note that property tables offer a small storage savings because the property URI is not stored in the table, and for clustered property tables, the subject is only stored once. 
-- For some properties, the datatype of the object value will be fixed and known. It may be specified as a property range constraint. Property tables can leverage this knowledge by, when possible, making the underlying database column for the property value match the property type1. This may enable the database to better optimise the storage and searching of the column.
+- **Advantages:**
+ - Note that property tables offer a small storage savings because the property URI is not stored in the table, and for clustered property tables, the subject is only stored once. 
+ - For some properties, the datatype of the object value will be fixed and known. It may be specified as a property range constraint. Property tables can leverage this knowledge by, when possible, making the underlying database column for the property value match the property type1. This may enable the database to better optimise the storage and searching of the column.
 
 
 ## 5. Performance evaluation
