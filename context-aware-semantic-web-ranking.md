@@ -62,5 +62,17 @@ Thus, Subsumption Weight will assign higher weights to paths which have more spe
 Unlike Universal Path Weights, User-Defined weights are more specific to the query (or context).
 
 ### Path Length Weight:
-Usually, user might be interested in the most direct path (i.e., shortest path) but there will be cases where one m
-In some queries, a user may be interested in the most direct path (i.e., shortest paths). Yet in other cases a user may wish to find possibly hidden, indirect, or discrete paths (i.e., longer paths). . The latter may be more significant in domains where there may be deliberate attempts to hide relationships; for example, potential terrorist cells remain distant and avoid direct contact with one another in order to defer possible detection [10] or money laundering [1] involves deliberate innocuous looking transactions. Hence, the user should determine which Path Length influence, if any, should be used (largely domain dependent). We will now define the Path Length Weight. If a user wants to favor shorter paths, (5a) is used, where |c| is the number of components in the path P (excluding the first and last nodes). In contrast, if a user wants to favor longer paths (5b) is used.
+- **Intuition:** Let path length influence rank of a path.
+- **Computing rank of a path based on path length:**
+If user wants to rank shortest paths high, then (a) is used and if user wants to favor long paths then (b) is used. 
+Here, |c| is number of components in the path P (excluding first and last nodes).
+
+![image](https://user-images.githubusercontent.com/22542670/31605738-a363d044-b284-11e7-8b2b-2b4963f6f609.png)
+
+- **Example:** 
+Path length weight (Lp) in the below example for longer path will be 1/9 and that of direct path will be 1/1. Shorter path will get higher weight as expected. Alternatively, if we have to favor longer paths, then Lp of longer path = 1- (1/9 )= 0.889 and Lp for direct path = 1-(1/1) = 0.
+
+![image](https://user-images.githubusercontent.com/22542670/31605741-aa53bb9e-b284-11e7-854f-af49ffe802b5.png)
+
+### Trust Weight:
+- **Intuition:** Rank trusted sources higher (e.g., Reuters could be regarded as a more trusted source on international news than some of the other news organizations)
