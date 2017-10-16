@@ -29,6 +29,7 @@ To support NLQ, one should capture semantic associations between entities. Seman
 A second generation `Semantic Web` is being realised as a scalable ontology-driven information system where the heterogenous data content is linked meaning with semantic metadata. It is not uncommon that the hunt for entity associations surfaces too many relationships between them thereby, making it equally important to rank them in order to find interesting and meaningful relationships before presenting them to end user.
 
 ## 3. References
+[https://www.cs.uic.edu/~ifc/SWDB/proceedings.pdf](https://www.cs.uic.edu/~ifc/SWDB/proceedings.pdf)
 [https://ercim-news.ercim.eu/en96/special/linked-open-vocabularies](https://ercim-news.ercim.eu/en96/special/linked-open-vocabularies 
 )
 
