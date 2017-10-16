@@ -1,7 +1,7 @@
 # Second Generation Semantic Web Vision: Relationship at the core of it
 At the heart of second generation Semantic Web is Semantic Associations a.k.a Relationships. Relationships lend meaning to information, makes them understandable and actionable, and provides new and possibly unexpected insights. A fundamental shift in focus happened from `documents` and `entities within documents` to `discovering and reasoning about relationships`. 
 
-The perspective of data as KNOWLEDGE was a critical movement in the world of BigData. Let's go into a lil back and peek into the history:
+The perspective of data as KNOWLEDGE was a critical movement in the world of BigData. Let's go little back and peek into the history:
 
 ## 1. History
 ### The emergence of a “Web of Data”:
