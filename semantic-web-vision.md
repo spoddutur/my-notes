@@ -16,12 +16,12 @@ Accessing and consuming data on the Web should not require end users to be aware
 **Semantic web vision:** Capture semantic association between entities (or resources) and allow user to formulate NLQ (Natural Language Queries) to find semantic association(s).
 
 **Capturing Semantic associations between entities using RDF:**
-To support NLQ, one should capture semantic associations between entities. Semantic associations essentially indicates how one entity (or resource) is related to other entity. Resource Description Framework (RDF) data model provides a framework for describing relationships among resources in terms of uniquely identified properties (attributes) and values.
+To support NLQ, one should capture semantic associations between entities. Semantic associations essentially indicates how one entity (or resource) is related to other entity. Resource Description Framework (RDF) data model provides a framework for describing relationships among resources in terms of uniquely identified properties (attributes) and values. An overview of RDF is provided [here](https://spoddutur.github.io/my-notes/rdf-overview)
 
 ### 1.2 Ontology - Standard Vocabulary to describe semantics of the data
-**Problem:** One of the current challenges for accessing and consuming data on the Web is dealing with heterogeneity, i.e. data can be distributed and duplicated in different data stores, and described by different custom schema’s (or vocbulary). 
-**Solution:** Standardise these custom schema’s.
-**Ontology - Provides standard vocabulary per domain:** A formal naming and definition was given for the types, properties, and interrelationships of the entities for a specific domain. Web companies like www, schema.org and linked open vocabulary took initiatives and published standard reusable linked vocabulary ecosystem. The initiative was not only to collect vocabulary metadata but also to promote good practice and improve overall ecosystem quality. Below picture illustrates example ontology of Organisation domain:
+- **Problem:** One of the current challenges for accessing and consuming data on the Web is dealing with heterogeneity, i.e. data can be distributed and duplicated in different data stores, and described by different custom schema’s (or vocbulary). 
+- **Solution:** Standardise these custom schema’s.
+- **Ontology - Provides standard vocabulary per domain:** A formal naming and definition was given for the types, properties, and interrelationships of the entities for a specific domain. Web companies like www, schema.org and linked open vocabulary took initiatives and published standard reusable linked vocabulary ecosystem. The initiative was not only to collect vocabulary metadata but also to promote good practice and improve overall ecosystem quality. Below picture illustrates example ontology of Organisation domain:
 ![image](https://user-images.githubusercontent.com/22542670/31596678-aed42424-b261-11e7-9059-abb5a6bb8784.png)
 
 
@@ -29,6 +29,6 @@ To support NLQ, one should capture semantic associations between entities. Seman
 A second generation `Semantic Web` is being realised as a scalable ontology-driven information system where the heterogenous data content is linked meaning with semantic metadata. It is not uncommon that the hunt for entity associations surfaces too many relationships between them thereby, making it equally important to rank them in order to find interesting and meaningful relationships before presenting them to end user.
 
 ## 3. References
-![https://ercim-news.ercim.eu/en96/special/linked-open-vocabularies](https://ercim-news.ercim.eu/en96/special/linked-open-vocabularies 
+[https://ercim-news.ercim.eu/en96/special/linked-open-vocabularies](https://ercim-news.ercim.eu/en96/special/linked-open-vocabularies 
 )
 
