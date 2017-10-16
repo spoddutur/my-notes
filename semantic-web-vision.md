@@ -25,7 +25,7 @@ To support NLQ, one should capture semantic associations between entities. Seman
 ![image](https://user-images.githubusercontent.com/22542670/31596678-aed42424-b261-11e7-9059-abb5a6bb8784.png)
 
 ## 3. Conclusion:
-We've to look beyond identifying entities in your data corpus. Mining relationships among the entities in your data brings forth a lot of new potential particularly in building semantic web out of data. RDF's and Ontology have evolved a long way into becoming industry standard to capture entities and their relationships.
+I hope this article gives a good perspective on why its importatnt to look beyond identifying entities in your data corpus. Mining relationships among the entities in your data brings forth a lot of new potential particularly in building semantic web out of data. RDF's and Ontology have evolved a long way into becoming industry standard to capture entities and their relationships.
 
 However, there  are some flaws to keep in mind while mining ontology in your data (as listed below):
 - Ontology learning systems are typically able to automate much of the ontology building (and sometimes maintenance) process, this comes at the expense of a loss of accuracy due to the replacement of human experts with algorithms which could be error-prone.
