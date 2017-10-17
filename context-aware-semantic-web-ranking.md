@@ -8,35 +8,33 @@ To rank the relevance of semantic associations, it is necessary to capture the c
 interpreted and used. This is a different problem compared to ranking documents in traditional search-engines, where ranking is done 
 based on number of references to them (TF-IDF). 
 
-In this blog, we look at two things:
-- Capturing users interests semantically through an ontology-based context specification language
-- Using a ranking function incorporating user-defined semantics (e.g., context) and universal semantics (e.g., associations conveying more information)
+In this blog, we look at formulating a custom ranking function which incorporates user-defined semantics (e.g., context) and universal semantics (e.g., associations conveying more information) via weight-assignments.
 
 ## 1. Weight Assignments 
 A path connecting two entities can contain many entities in between. Here, we'll look at how can we rank a path 
 The semantic associations i.e., the path connecting two entities can have multiple entities/properties in between. 
 To rank these paths, a rank function is defined which is constituted by a lot of intermediate weights assigned to edges connecting them.
 The weights are particularly categorized into two types:
-- 1. **Universal Weights**
-- 2. **User-Defined Weights**
+1. **Universal Weights**
+2. **User-Defined Weights**
 
 Let's look at these two weights in detail:
 ## 2. Universal Weights
 Certain weights will influence a path rank regardless of the query or context of interest. We call them Universal Weights.
-Let's discuss the different kinds of Universal Weights that contribute to the overall path rank:
+Let's discuss the one such kind of universal weight that contribute to the overall path rank:
 
 ### 2.1 Subsumption Weight
-**Intuition:** Assign more weights to more `specific` semantic associations because they convey more meaning than general associations.
+**Intuition:** Assign more weight to more `specific` semantic associations because they convey more meaning than general associations.
 
 Following figure depicts a class `Organization` and its subclasses. `Organization` being the highest class in hierarchy is the most general while `Political Organization` is a more specific organization. 
 
-![image](https://user-images.githubusercontent.com/22542670/31599986-5db9e2a2-b272-11e7-985b-c49ffc6e31c4.png)
+<img src="https://user-images.githubusercontent.com/22542670/31599986-5db9e2a2-b272-11e7-985b-c49ffc6e31c4.png" width="300"/>
 
 **Computing subsumption weight of a path P:**
 For this, we've to first compute component weight based on calss hierarchy. Component(c) is essentially any entity or property contained in path P.
 Component weight of the _ith_ component in Path P is defined as follows:
 
-![image](https://user-images.githubusercontent.com/22542670/31600020-77314f40-b272-11e7-9f21-4db4d2525d75.png)
+<img src="https://user-images.githubusercontent.com/22542670/31600020-77314f40-b272-11e7-9f21-4db4d2525d75.png" width="300"/>
 
 According to the above formula, Democratic Political Organisation(c3) will have a component weight of 1 and Political Organisation(c2) will have a component weight of 0.6 as shown below:
 
