@@ -28,17 +28,18 @@ Let's discuss the one such kind of universal weight that contribute to the overa
 
 Following figure depicts a class `Organization` and its subclasses. `Organization` being the highest class in hierarchy is the most general while `Political Organization` is a more specific organization. 
 
-<img src="https://user-images.githubusercontent.com/22542670/31599986-5db9e2a2-b272-11e7-985b-c49ffc6e31c4.png" width="300"/>
+![image](https://user-images.githubusercontent.com/22542670/31599986-5db9e2a2-b272-11e7-985b-c49ffc6e31c4.png)
 
 **Computing subsumption weight of a path P:**
-For this, we've to first compute component weight based on calss hierarchy. Component(c) is essentially any entity or property contained in path P.
-Component weight of the _ith_ component in Path P is defined as follows:
+For this, we've to first compute component weight based on calss hierarchy where a component is any entity or property contained in path P.
 
-<img src="https://user-images.githubusercontent.com/22542670/31600020-77314f40-b272-11e7-9f21-4db4d2525d75.png" width="300"/>
+__Component weight of the _ith_ component in Path P is defined as follows:__
+
+<img style="border-width:2px" src="https://user-images.githubusercontent.com/22542670/31600020-77314f40-b272-11e7-9f21-4db4d2525d75.png" width="300"/>
 
 According to the above formula, Democratic Political Organisation(c3) will have a component weight of 1 and Political Organisation(c2) will have a component weight of 0.6 as shown below:
 
-![image](https://user-images.githubusercontent.com/22542670/31600022-7a172072-b272-11e7-939f-fc02073d31b0.png)
+<img src="https://user-images.githubusercontent.com/22542670/31600022-7a172072-b272-11e7-939f-fc02073d31b0.png" width="300"/>
 
 Given component weights, the subsumption weight of a path P is computed as shown below: 
 ![image](https://user-images.githubusercontent.com/22542670/31600025-7f0ac958-b272-11e7-8d34-452bf669c8ab.png)
@@ -48,6 +49,8 @@ where |c| is the total number of components in the path P excluding starting and
 Thus the Subsumption Weight of a path P is the product of all the component weights within P, normalised by the number of components in the path (to avoid bias in path length). 
 
 **Example:**
+
+
 ![image](https://user-images.githubusercontent.com/22542670/31600030-842fb7fe-b272-11e7-9a26-65baf7974bd9.png)
 
 - Subsumption weight of Path e1 -> e2 -> e5  = 1/3 * (1/2 * 1/2 * 1/1) = 0.083
