@@ -101,4 +101,4 @@ We have seen how we can plugin different ranking criteria's to score the semanti
 - Path Length Weight <img width="20" src="https://user-images.githubusercontent.com/22542670/31651778-95ffd36a-b33a-11e7-8486-3c2f44e787cc.png"/> - Allows preference of either immediate or distant relationships
 - Trust Weight <img width="20" src="https://user-images.githubusercontent.com/22542670/31648494-aac7d0ea-b32b-11e7-8312-764c08bc5735.png"/> - determining how reliable a relationship is according to its provenance
 
-One can tweak and add more ranking criteria's and come up with their own formula. This blog is to give an idea on how to go about devising ranking strategy. Hope it helps!!
+One can tweak and add more ranking criteria's and come up with their own formula. This blog is to give an idea on how to go about devising ranking strategy. There are indeed a lot of other advanced ways to rank the results depending on your domain and usecase. Hope it helps!!
