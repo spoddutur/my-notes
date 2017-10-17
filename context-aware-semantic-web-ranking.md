@@ -78,7 +78,22 @@ Path length weight (Lp) in the below example for longer path will be 1/9 and tha
 - **Intuition:** Rank trusted sources higher (e.g., Reuters could be regarded as a more trusted source on international news than some of the other news organizations)
 
 - **Computing rank of a path based on source trust weight:**
+
 ![image](https://user-images.githubusercontent.com/22542670/31648494-aac7d0ea-b32b-11e7-8312-764c08bc5735.png)
- Trust weight of an overall path P is defined as product of shown below where ![image](https://user-images.githubusercontent.com/22542670/31648468-84a7b678-b32b-11e7-8711-fc694dd1400f.png)
+ Trust weight of an overall path P is defined as product of trust weights of all properties in P (where ![image](https://user-images.githubusercontent.com/22542670/31648468-84a7b678-b32b-11e7-8711-fc694dd1400f.png))
  is the trust weight of _i_th property in the path P
 ![image](https://user-images.githubusercontent.com/22542670/31648413-2da49bb6-b32b-11e7-84c3-336544f02bf9.png)
+
+## 4. Final Ranking criterion:
+We will now define the overall path rank, using all the different weights discussed above.
+
+![image](https://user-images.githubusercontent.com/22542670/31648403-1f0e9192-b32b-11e7-9c7d-67df7dc91874.png)
+where all the _Ki_'s add up to 1.0 and are intended to allow fine-tuning of the different ranking criteria (e.g., trust can be given more weight than path length). 
+
+## 5. Conclusion:
+We have seen how we can plugin different ranking criteria's to score the semantic associations based on user's interest namely:
+- Subsumption Weight - How much meaning a semantic association conveys depending on the places of its components in the ontology
+- Path Length Weight - Allows preference of either immediate or distant relationships
+- Trust Weight - determining how reliable a relationship is according to its provenance
+
+One can tweak and add more ranking criteria's and come up with their own formula. This blog is to give an idea on how to go about devising ranking strategy. Hope it helps!!
