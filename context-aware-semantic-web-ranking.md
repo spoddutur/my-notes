@@ -33,15 +33,14 @@ Following figure depicts a class `Organization` and its subclasses. `Organizatio
 **Computing subsumption weight of a path P:**
 For this, we've to first compute component weight based on calss hierarchy where a component is any entity or property contained in path P.
 
-__Component weight of the _ith_ component in Path P is defined as follows:__
-
+1. Compute component weight of the _ith_ component in Path P is defined as follows:
 <img style="border-width:2px" src="https://user-images.githubusercontent.com/22542670/31600020-77314f40-b272-11e7-9f21-4db4d2525d75.png" width="300"/>
 
 According to the above formula, Democratic Political Organisation(c3) will have a component weight of 1 and Political Organisation(c2) will have a component weight of 0.6 as shown below:
 
 <img src="https://user-images.githubusercontent.com/22542670/31600022-7a172072-b272-11e7-939f-fc02073d31b0.png" width="300"/>
 
-Given component weights, the subsumption weight of a path P is computed as shown below: 
+2. Given component weights, the subsumption weight of a path P is computed as shown below: 
 ![image](https://user-images.githubusercontent.com/22542670/31600025-7f0ac958-b272-11e7-8d34-452bf669c8ab.png)
 
 
