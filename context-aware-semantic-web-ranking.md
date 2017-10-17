@@ -45,7 +45,7 @@ According to the above formula, Democratic Political Organisation(c3) will have 
 
 
 where |c| is the total number of components in the path P excluding starting and ending entities.
-Thus , ![image](https://user-images.githubusercontent.com/22542670/31651781-9b97d62e-b33a-11e7-9380-4e380aea917a.png)
+Thus , <img src="https://user-images.githubusercontent.com/22542670/31651781-9b97d62e-b33a-11e7-9380-4e380aea917a.png" width="20"/>
 i.e., the Subsumption Weight of a path P is the product of all the component weights within P, normalised by the number of components in the path (to avoid bias in path length). 
 
 **Example:**
@@ -72,9 +72,8 @@ If user wants to rank shortest paths high, then as shown in the figure below, (a
 Here, |c| is number of components in the path P (excluding first and last nodes).
 
 - **Example:** 
-Path length weight ![image](https://user-images.githubusercontent.com/22542670/31651778-95ffd36a-b33a-11e7-8486-3c2f44e787cc.png) in the below example for longer path will be 1/9 and that of direct path will be 1/1. Shorter path will get higher weight as expected. Alternatively, if we have to favor longer paths, then ![image](https://user-images.githubusercontent.com/22542670/31651778-95ffd36a-b33a-11e7-8486-3c2f44e787cc.png)
- of longer path = 1- (1/9 )= 0.889 and ![image](https://user-images.githubusercontent.com/22542670/31651778-95ffd36a-b33a-11e7-8486-3c2f44e787cc.png)
- for direct path = 1-(1/1) = 0.
+Path length weight <img src="https://user-images.githubusercontent.com/22542670/31651778-95ffd36a-b33a-11e7-8486-3c2f44e787cc.png" width="20"/> in the below example for longer path will be 1/9 and that of direct path will be 1/1. Shorter path will get higher weight as expected. Alternatively, if we have to favor longer paths, then <img src="https://user-images.githubusercontent.com/22542670/31651778-95ffd36a-b33a-11e7-8486-3c2f44e787cc.png" width="20"/>
+ of longer path = 1- (1/9 )= 0.889 and <img src="https://user-images.githubusercontent.com/22542670/31651778-95ffd36a-b33a-11e7-8486-3c2f44e787cc.png" width="20"/> for direct path = 1-(1/1) = 0.
 
 ![image](https://user-images.githubusercontent.com/22542670/31605741-aa53bb9e-b284-11e7-854f-af49ffe802b5.png)
 
