@@ -72,6 +72,7 @@ If user wants to rank shortest paths high, then as shown in the figure below, (a
 Here, |c| is number of components in the path P (excluding first and last nodes).
 
 - **Example:** 
+
 Path length weight <img src="https://user-images.githubusercontent.com/22542670/31651778-95ffd36a-b33a-11e7-8486-3c2f44e787cc.png" width="20"/> in the below example for longer path will be 1/9 and that of direct path will be 1/1. Shorter path will get higher weight as expected. Alternatively, if we have to favor longer paths, then <img src="https://user-images.githubusercontent.com/22542670/31651778-95ffd36a-b33a-11e7-8486-3c2f44e787cc.png" width="20"/>
  of longer path = 1- (1/9 )= 0.889 and <img src="https://user-images.githubusercontent.com/22542670/31651778-95ffd36a-b33a-11e7-8486-3c2f44e787cc.png" width="20"/> for direct path = 1-(1/1) = 0.
 
