@@ -93,6 +93,7 @@ Path length weight <img src="https://user-images.githubusercontent.com/22542670/
 We will now define the overall path rank, using all the different weights discussed above.
 
 ![image](https://user-images.githubusercontent.com/22542670/31648403-1f0e9192-b32b-11e7-9c7d-67df7dc91874.png)
+
 where all the _Ki_'s add up to 1.0 and are intended to allow fine-tuning of the different ranking criteria (e.g., trust can be given more weight than path length). 
 
 ## 5. Conclusion:
