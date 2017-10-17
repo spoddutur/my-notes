@@ -76,3 +76,9 @@ Path length weight (Lp) in the below example for longer path will be 1/9 and tha
 
 ### Trust Weight:
 - **Intuition:** Rank trusted sources higher (e.g., Reuters could be regarded as a more trusted source on international news than some of the other news organizations)
+
+- **Computing rank of a path based on source trust weight:**
+![image](https://user-images.githubusercontent.com/22542670/31648494-aac7d0ea-b32b-11e7-8312-764c08bc5735.png)
+ Trust weight of an overall path P is defined as product of shown below where ![image](https://user-images.githubusercontent.com/22542670/31648468-84a7b678-b32b-11e7-8711-fc694dd1400f.png)
+ is the trust weight of _i_th property in the path P
+![image](https://user-images.githubusercontent.com/22542670/31648413-2da49bb6-b32b-11e7-84c3-336544f02bf9.png)
