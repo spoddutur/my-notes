@@ -45,7 +45,8 @@ According to the above formula, Democratic Political Organisation(c3) will have 
 
 
 where |c| is the total number of components in the path P excluding starting and ending entities.
-Thus the Subsumption Weight of a path P is the product of all the component weights within P, normalised by the number of components in the path (to avoid bias in path length). 
+Thus , ![image](https://user-images.githubusercontent.com/22542670/31651781-9b97d62e-b33a-11e7-9380-4e380aea917a.png)
+i.e., the Subsumption Weight of a path P is the product of all the component weights within P, normalised by the number of components in the path (to avoid bias in path length). 
 
 **Example:**
 
@@ -64,13 +65,16 @@ Unlike Universal Path Weights, User-Defined weights are more specific to the que
 ### Path Length Weight:
 - **Intuition:** Let path length influence rank of a path.
 - **Computing rank of a path based on path length:**
-If user wants to rank shortest paths high, then (a) is used and if user wants to favor long paths then (b) is used. 
-Here, |c| is number of components in the path P (excluding first and last nodes).
+If user wants to rank shortest paths high, then as shown in the figure below, (a) is used and if user wants to favor long paths then (b) is used. 
 
 ![image](https://user-images.githubusercontent.com/22542670/31605738-a363d044-b284-11e7-8b2b-2b4963f6f609.png)
 
+Here, |c| is number of components in the path P (excluding first and last nodes).
+
 - **Example:** 
-Path length weight (Lp) in the below example for longer path will be 1/9 and that of direct path will be 1/1. Shorter path will get higher weight as expected. Alternatively, if we have to favor longer paths, then Lp of longer path = 1- (1/9 )= 0.889 and Lp for direct path = 1-(1/1) = 0.
+Path length weight ![image](https://user-images.githubusercontent.com/22542670/31651778-95ffd36a-b33a-11e7-8486-3c2f44e787cc.png) in the below example for longer path will be 1/9 and that of direct path will be 1/1. Shorter path will get higher weight as expected. Alternatively, if we have to favor longer paths, then ![image](https://user-images.githubusercontent.com/22542670/31651778-95ffd36a-b33a-11e7-8486-3c2f44e787cc.png)
+ of longer path = 1- (1/9 )= 0.889 and ![image](https://user-images.githubusercontent.com/22542670/31651778-95ffd36a-b33a-11e7-8486-3c2f44e787cc.png)
+ for direct path = 1-(1/1) = 0.
 
 ![image](https://user-images.githubusercontent.com/22542670/31605741-aa53bb9e-b284-11e7-854f-af49ffe802b5.png)
 
@@ -82,6 +86,7 @@ Path length weight (Lp) in the below example for longer path will be 1/9 and tha
 ![image](https://user-images.githubusercontent.com/22542670/31648494-aac7d0ea-b32b-11e7-8312-764c08bc5735.png)
  Trust weight of an overall path P is defined as product of trust weights of all properties in P (where ![image](https://user-images.githubusercontent.com/22542670/31648468-84a7b678-b32b-11e7-8711-fc694dd1400f.png))
  is the trust weight of _i_th property in the path P
+ 
 ![image](https://user-images.githubusercontent.com/22542670/31648413-2da49bb6-b32b-11e7-84c3-336544f02bf9.png)
 
 ## 4. Final Ranking criterion:
