@@ -38,7 +38,9 @@ To understand this better, let's consider an example usecase of index on persons
 
 ```Number of persons with name Alex VS number of persons having Alex as friend```
 
-In reality, search by people name Alex vs people who have Alex as friend should be scored differently. This is where scoring on a per-field-basis is very important. Without `field-based` perception, scoring factors like `tf` and `idf` will be same for both the queries.
+- **Search for people named Alex**: Documents containing the term `Alex` only in `name` field should get boosted for this query. 
+- **search for people who have Alex as friend** Documents containing the term `Alex` only in `freinds` field should boost this query.
+This is where scoring on a per-field-basis is very important. Without `field-based` perception, scoring factors like `tf` and `idf` will be same for both the queries.
 
 ### 2.2 Revisit Scoring factors with Field-Based perception
 Now, let's revisit above listed scoring factors again with this new perception where each of the factors are evaluated on the matching field as shown below:
