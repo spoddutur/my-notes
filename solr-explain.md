@@ -2,11 +2,10 @@
 When you learn about relevancy ranking in Lucene-based search engines like Solr and Elasticsearch, **TF-term frequency** and **IDF-inverse document frequency** are the first things we get to know. They form the core of their default scoring formula. However, there are some common misconceptions that people have on TF-IDF.
 
 ### Common Misconceptions on TF-IDF scoring
-- Default tf-idf scoring depends only on tf and idf
 - Documents containing the same TF and IDF values will get same scores.
-- Documents containing higher number of query terms i.e., higher TF will always get scored higher over documents having lower TF.
+- Documents containing higher TF will always get scored higher over documents having lower TF.
 
-Let’s try and understand them in this article.
+#### Let’s try and understand them in this article.
 1. Root cause for these misconceptions
 2. Quick peek into Lucene's Default TF-IDF scoring
 3. DEMO
@@ -14,7 +13,8 @@ For this, let’s take a quick peek into lucene’s default tf-idf scoring.
 
 ### 1. Root cause for these misconceptions
 One of the primary root cause for the misconceptions mentioned above is the following myth on tf-idf scoring:
- “tf-idf scoring depends only on tf and idf.”
+
+**tf-idf scoring depends only on tf and idf.**
 
 ### 2. Quick peek into Lucene's Default TF-IDF scoringFact:
 In reality, there are lot of other factors that tf-idf scoring depends on as shown below:
