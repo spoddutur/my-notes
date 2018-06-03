@@ -30,10 +30,15 @@ As we can see in the figure shown above, there are other factors apart from tf a
 5. **t.getBoost** - search time boost specified by user for the query term t. 
 6. **norm(t in d)** - encapsulates two things: fieldBoost and lengthNorm.
   - **fieldBoost** - boost specified to the field associated with term 't' in schema.xml and 
-  - **lengthNorm** - captures length of the field matched. Fields containing shorter content will get higher score and vice versa.For example, consider two documents with names "Alex John Smith" vs "Alex Smith". If you search for "Smith", document with "Alex Smith" will get higher lengthNorm.
+  - **lengthNorm** - effects score in accordance with the number of tokens of this field in the document. Shorter fields contribute more to the score and viceversa. For example, consider two documents with names "Alex John Smith" vs "Alex Smith". If you search for "Smith", document with "Alex Smith" will get higher lengthNorm.
 
 ### 2.1 Revisit Scoring factors with "Field Based" perception
-**Note that Lucene is field based.** Hence each query term applies to a single field. Now, let's revisit above listed scoring factors again with this perception
+**Note that Lucene is field based.** Hence each query term applies to a single field. 
+To understand this better, let's consider an example usecase of index on persons with `name` and `friends_names` fields. Now, consider the following two sample queries:
+<br/>**Number of persons with name `Alex` VS number of persons having `Alex` as friend**
+In reality, search by Alex people vs people who has Alex as friend should be scored differently. This is where scoring on a per-field-basis is very important. Without `field-based` perception, scoring factors like `tf` and `idf` will be same for both the queries.
+
+Now, let's revisit above listed scoring factors again with this new perception where each of the factors are evaluated on the matching field as shown below:
 1. **norm(t in d)** actually means norm(field(t) in doc d) where field(t) is the field associated with term t.
 2. **tf(t in d)** similarly means tf(field(t) in doc d
 3. **idf(term)** also means idf(field(term))!!
