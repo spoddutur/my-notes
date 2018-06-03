@@ -34,9 +34,9 @@ As we can see in the figure shown above, there are other factors apart from tf a
 
 ### 2.1 Revisit Scoring factors with "Field Based" perception
 **Note that Lucene is field based.** Hence each query term applies to a single field. Now, let's revisit above listed scoring factors again with this perception
-2. **norm(t in d)** actually means norm(field(t) in doc d) where field(t) is the field associated with term t.
-3. **tf(t in d)** similarly means tf(field(t) in doc d
-4. **idf(term)** also means idf(field(term))!!
-1. **lengthNorm** i.e., Document length normalization is by the length of the certain field,
+1. **norm(t in d)** actually means norm(field(t) in doc d) where field(t) is the field associated with term t.
+2. **tf(t in d)** similarly means tf(field(t) in doc d
+3. **idf(term)** also means idf(field(term))!!
+4. **lengthNorm** i.e., Document length normalization is by the length of the certain field,
 
 
