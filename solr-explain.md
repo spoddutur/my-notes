@@ -13,10 +13,10 @@ For this, let’s take a quick peek into lucene’s default tf-idf scoring.
 
 ### 1. Root cause for these misconceptions
 One of the primary root cause for the misconceptions mentioned above is the following myth on tf-idf scoring:
-**tf-idf scoring depends only on tf and idf.**
+**MYTH: tf-idf scoring depends only on tf and idf.**
 
-### 2. Quick peek into Lucene's Default TF-IDF scoringFact:
-In reality, there are lot of other factors that tf-idf scoring depends on as shown below:
+### 2. Quick peek into Lucene's Default TF-IDF scoring:
+In reality, there are lot of other factors that this scoring depends on as shown below:
 
 ![image](https://user-images.githubusercontent.com/22542670/40882365-2a65298a-66fd-11e8-990b-68b132567a2e.png)
 
@@ -29,8 +29,8 @@ As we can see in the figure shown above, there are other factors apart from tf a
 4. **queryNorm(q)** - is a normalizing factor used to make scores between queries comparable. This factor does not affect document ranking (since all ranked documents are multiplied by the same factor)
 5. **t.getBoost** - search time boost specified by user for the query term t. 
 6. **norm(t in d)** - encapsulates two things: fieldBoost and lengthNorm.
-7. **fieldBoost** - boost specified to the field associated with term 't' in schema.xml and 
-8. **lengthNorm** - captures length of the field matched. Shorter fields will get higher score and vice versa.
+  6.1. **fieldBoost** - boost specified to the field associated with term 't' in schema.xml and 
+  6.2. **lengthNorm** - captures length of the field matched. Shorter fields will get higher score and vice versa.
 
 ### 2.1 Revisit Scoring factors with "Field Based" perception
 **Note that Lucene is field based.** Hence each query term applies to a single field. Now, let's revisit above listed scoring factors again with this perception
