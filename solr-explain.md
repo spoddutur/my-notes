@@ -29,14 +29,14 @@ As we can see in the figure shown above, there are other factors apart from tf a
 4. **queryNorm(q)** - is a normalizing factor used to make scores between queries comparable. This factor does not affect document ranking (since all ranked documents are multiplied by the same factor)
 5. **t.getBoost** - search time boost specified by user for the query term t. 
 6. **norm(t in d)** - encapsulates two things: fieldBoost and lengthNorm.
-  6.1. **fieldBoost** - boost specified to the field associated with term 't' in schema.xml and 
-  6.2. **lengthNorm** - captures length of the field matched. Fields containing shorter content will get higher score and vice versa.For example, consider two documents with names "Alex John Smith" vs "Alex Smith". If you search for "Smith", document with "Alex Smith" will get higher lengthNorm.
+  - **fieldBoost** - boost specified to the field associated with term 't' in schema.xml and 
+  - **lengthNorm** - captures length of the field matched. Fields containing shorter content will get higher score and vice versa.For example, consider two documents with names "Alex John Smith" vs "Alex Smith". If you search for "Smith", document with "Alex Smith" will get higher lengthNorm.
 
 ### 2.1 Revisit Scoring factors with "Field Based" perception
 **Note that Lucene is field based.** Hence each query term applies to a single field. Now, let's revisit above listed scoring factors again with this perception
-1. **lengthNorm** i.e., Document length normalization is by the length of the certain field,
 2. **norm(t in d)** actually means norm(field(t) in doc d) where field(t) is the field associated with term t.
 3. **tf(t in d)** similarly means tf(field(t) in doc d
 4. **idf(term)** also means idf(field(term))!!
+1. **lengthNorm** i.e., Document length normalization is by the length of the certain field,
 
 
