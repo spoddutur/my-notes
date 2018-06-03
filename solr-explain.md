@@ -32,12 +32,15 @@ As we can see in the figure shown above, there are other factors apart from tf a
   - **fieldBoost** - boost specified to the field associated with term 't' in schema.xml and 
   - **lengthNorm** - effects score in accordance with the number of tokens of this field in the document. Shorter fields contribute more to the score and viceversa. For example, consider two documents with names "Alex John Smith" vs "Alex Smith". If you search for "Smith", document with "Alex Smith" will get higher lengthNorm.
 
-### 2.1 Revisit Scoring factors with "Field Based" perception
-**Note that Lucene is field based.** Hence each query term applies to a single field. 
-To understand this better, let's consider an example usecase of index on persons with `name` and `friends_names` fields. Now, consider the following two sample queries:
-<br/>**Number of persons with name `Alex` VS number of persons having `Alex` as friend**
-In reality, search by Alex people vs people who has Alex as friend should be scored differently. This is where scoring on a per-field-basis is very important. Without `field-based` perception, scoring factors like `tf` and `idf` will be same for both the queries.
+### 2.1 "Field Based" perception
+**Note that Lucene is field based.** Hence each query term is applied to a single field and so does the scoring factors. 
+To understand this better, let's consider an example usecase of index on persons with `name` and `friend_names` fields. Now, consider the following two sample queries:
 
+```Number of persons with name Alex VS number of persons having Alex as friend```
+
+In reality, search by people name Alex vs people who have Alex as friend should be scored differently. This is where scoring on a per-field-basis is very important. Without `field-based` perception, scoring factors like `tf` and `idf` will be same for both the queries.
+
+### 2.2 Revisit Scoring factors with Field-Based perception
 Now, let's revisit above listed scoring factors again with this new perception where each of the factors are evaluated on the matching field as shown below:
 1. **norm(t in d)** actually means norm(field(t) in doc d) where field(t) is the field associated with term t.
 2. **tf(t in d)** similarly means tf(field(t) in doc d
