@@ -19,7 +19,7 @@ One of the primary root cause for the misconceptions mentioned above is the foll
 ### 2. Quick peek into Lucene's Default TF-IDF scoringFact:
 In reality, there are lot of other factors that tf-idf scoring depends on as shown below:
 
-<img src="https://user-images.githubusercontent.com/22542670/40882365-2a65298a-66fd-11e8-990b-68b132567a2e.png" width=100% />
+<img src="https://user-images.githubusercontent.com/22542670/40882365-2a65298a-66fd-11e8-990b-68b132567a2e.png"> </img>
 
 As we can see in the figure shown above, there are other factors apart from tf and idf in this scoring formula. Let’s discuss them:
 
@@ -38,6 +38,6 @@ As we can see in the figure shown above, there are other factors apart from tf a
 1. **lengthNorm** i.e., Document length normalization is by the length of the certain field,
 2. **norm(t in d)** actually means norm(field(t) in doc d) where field(t) is the field associated with term t.
 3. **tf(t in d)** similarly means tf(field(t) in doc d
-4. ** idf(term)** also means idf(field(term))!!
+4. **idf(term)** also means idf(field(term))!!
 
 
