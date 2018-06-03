@@ -13,13 +13,12 @@ For this, let’s take a quick peek into lucene’s default tf-idf scoring.
 
 ### 1. Root cause for these misconceptions
 One of the primary root cause for the misconceptions mentioned above is the following myth on tf-idf scoring:
-
 **tf-idf scoring depends only on tf and idf.**
 
 ### 2. Quick peek into Lucene's Default TF-IDF scoringFact:
 In reality, there are lot of other factors that tf-idf scoring depends on as shown below:
 
-<img src="https://user-images.githubusercontent.com/22542670/40882365-2a65298a-66fd-11e8-990b-68b132567a2e.png"> </img>
+![image](https://user-images.githubusercontent.com/22542670/40882365-2a65298a-66fd-11e8-990b-68b132567a2e.png)
 
 As we can see in the figure shown above, there are other factors apart from tf and idf in this scoring formula. Let’s discuss them:
 
