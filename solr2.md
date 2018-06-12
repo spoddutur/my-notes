@@ -8,10 +8,17 @@ We'll use below query to understand the different variants of query parsings as 
 q=red apple&qf=title,description
 ```
 
-## Original Lucene Query Parser
+## 1. Original Lucene Query Parser
+
+#### 1.1 Parsing Style:
 The original Lucene query parser would parse our above query using simple conjunction(i.e., AND)/Disjunction(i.e., OR) like this:
 ```markdown
-(title:red OR description:apple) OR (text:red OR description:apple)
+(title:red OR title:apple) OR (description:red OR description:apple)
+
+**Analysis**
+(title:red OR title:apple) -> looks for red and apple terms in title field
+(description:red OR description:apple) -> looks for red and apple terms in description field
+Its more **field-centric** i.e., looks for users search terms per field.
 ```
 #### Cons: 
 - **User's Expectation?** users typically expect documents with `red apple’s` to get higher score than documents having just `red things` or just `apple things`! 
@@ -20,6 +27,28 @@ The original Lucene query parser would parse our above query using simple conjun
 - What users typically expect is documents with `red apple’s`, not just `red things` nor just `apple things`! 
 http://mail-archives.apache.org/mod_mbox/lucene-solr-user/201703.mbox/%3cCALG6HL8W_cPeXCYnVKs2eSpDsTtcZ8_RbcYqWr+ZPoXwU5APPQ@mail.gmail.com%3e 
 
-So DisjunctionMaxQuery a.k.a DisMax came about to bias towards results that had more of the user's search terms. DisMax takes per-term maximum and adds them together as shown below: 
-(title:red | description:red) OR (title:apple | description:apple)
-‘|’ operator shown in the above query takes max. Here the highest scored result will have BOTH search terms. So essentially a document that has both red and apple will come to the top. This strategy is coined as "term centric”
+#### Fix: 
+- Change the parser to take per-term maximum to bias results towards documents containing more of user's search terms.
+- **TADA - Came DisjunctionMaxQueryParser!!**
+
+## 2. DisjunctionMaxQueryParser
+
+#### 2.1 Objective:
+Documents containing most user's search terms should get higher score.
+
+#### 2.2 Parsing Style:
+DisMax takes per-term maximum and adds them together as shown below: 
+```markdown
++((title:red | description:red) (title:apple | description:apple))
+
++ => denotes disjunction or AND operator
+| -> denotes max operator
+(title:red | description:red) -> takes max tf-idf score for term `red` in title and description fields
+(title:apple | description:apple) -> takes max tf-idf score for term `apple` in title and description fields
+Its more **term-centric** i.e., looks for documents containing all users search terms.
+```
+#### 2.3 Pros:
+Here the highest scored result will have BOTH search terms. So essentially a document that has both red and apple will come to the top. This strategy is coined as **term centri**.
+
+#### 2.4 Cons:
+
