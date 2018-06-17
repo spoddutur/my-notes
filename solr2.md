@@ -21,15 +21,16 @@ The original Lucene query parser would parse our above query using simple Disjun
 #### 1.2 Analysis - This style is more FIELD-CENTRIC!!
 ![image](https://user-images.githubusercontent.com/22542670/41508488-34fb01aa-7263-11e8-99d0-87e37cd70b6b.png)
 
-#### Cons: 
+#### Cons: Documents talking about just red things or apples might get higher score over red-apple's
 - **User's Expectation:** Users typically expect documents with `red apple’s` to get higher score than documents having just `red things` or just `apple things`! 
-- **Reality:** A document that has 2 mentions of term `red` in two fields will end up getting the same score as a document that talks about `red and apple`. 
-- **Why is that so??** This is because **`two mentions of term red`** will get 2 hits. Likewise **`One mention of red and one mention of apple`** will also get 2 hits for **`(title:red OR description:apple) OR (text:red OR description:apple)`** query.
+- **Reality with this approach:** A document that has 2 mentions of term `red` in two fields will end up getting the same score as a document that talks about `red and apple`. 
+- **Why is that so??** This is because **`two mentions of term red`** will get 2 hits. Likewise **`One mention of red and one mention of apple`** will also get 2 hits in this case.
 - What users typically expect is documents with `red apple’s`, not just `red things` nor just `apple things`! 
 http://mail-archives.apache.org/mod_mbox/lucene-solr-user/201703.mbox/%3cCALG6HL8W_cPeXCYnVKs2eSpDsTtcZ8_RbcYqWr+ZPoXwU5APPQ@mail.gmail.com%3e 
 
 #### Fix: 
-- Change the parser to take per-term maximum to bias results towards documents containing more of user's search terms.
+- Give importance to terms i.e., **Go Term-Centric from Field-centric**
+- For this, a new parser was added to take per-term maximum to bias results towards documents containing more of user's search terms.
 - **TADAAA - Came DisjunctionMaxQueryParser!!**
 
 ## 2. DisjunctionMaxQueryParser
