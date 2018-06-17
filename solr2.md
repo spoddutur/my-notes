@@ -1,11 +1,11 @@
 # How Solr parses our Query
 
-QueryParser is mainly responsible for:
-1. Tokenize user's string query to generate [TokenStream](https://github.com/apache/lucene-solr/blob/master/lucene/core/src/java/org/apache/lucene/analysis/TokenStream.java).
-2. Tranform TokenStream by applying analysers like shingles, synonyms, auto phrasing, taxonomies etc as per user's configuration to either filter, edit or add new tokens. 
-3. Generate [Lucene's Query](https://github.com/apache/lucene-solr/blob/master/lucene/core/src/java/org/apache/lucene/search/Query.java) object out of TokenStream.
+QueryParser is mainly responsible to:
+1. **Tokenize user's query** which is a String and generate [TokenStream](https://github.com/apache/lucene-solr/blob/master/lucene/core/src/java/org/apache/lucene/analysis/TokenStream.java).
+2. **Tranform TokenStream** to either filter, edit or add new tokens by applying analysers like shingles, synonyms, auto phrasing, taxonomies etc as per user's configuration on the field. 
+3. **Generate [Lucene's Query](https://github.com/apache/lucene-solr/blob/master/lucene/core/src/java/org/apache/lucene/search/Query.java)** object out of TokenStream.
 
-This article is an attempt to give a preview of how solr's QueryParser progressed from just simple parsing using mainly conjunction/disjunction operators to handling today's advanced graph-representation of TokenStream. For this, let’s go little back into history. To illustrate this better, we'll take following user query and analyse different variants of parsing it.
+This article is an attempt to give a preview of how solr's QueryParser progressed from just simple parsing using mainly conjunction/disjunction operators to handling today's advanced graph-representation of TokenStreams i.e., those produced by analysers like SynonymGraphFilter etc. For this, let’s go little back into history and analyse following query with different variants to parse it.
 ```markdown
 q=red apple&qf=title,description
 ```
