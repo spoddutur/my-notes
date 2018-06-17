@@ -113,6 +113,3 @@ Query parsing with sow=false can flip in surprising ways between term-centric to
 4. **Recommendation: Keep It Simple**. In my experience, the term-centric syntax that comes with autoGeneratePhraseQueries and sow=false provides pretty good default search results. 
 5. One can always consider trial and errors with solr-explain i.e., by adding debugQuery=true
 param to our query and see the details of how our queries are transformed into Lucene syntax.
-
-## Appendix:
-https://github.com/apache/lucene-solr/blob/master/solr/core/src/java/org/apache/solr/search/QueryParsing.java - parseOP() - default operator is OR
