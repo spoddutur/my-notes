@@ -6,7 +6,7 @@ QueryParser is mainly responsible to:
 3. **Generate [Lucene's Query](https://github.com/apache/lucene-solr/blob/master/lucene/core/src/java/org/apache/lucene/search/Query.java)** object out of TokenStream.
 
 ### All of this is fine, but, **Does Solr generate TERM-CENTRIC Query or FIELD-CENTRIC QUERY?**
-For a user query like **`q=red+apple&qf=title,description`**, where user is looking for documents talking about **`red apples`**, which of the following two options does Solr parse it?
+For a user query like **`q=red+apple&qf=title,description`**, where user is looking for documents talking about **`red apples`**, which of the following two options does Solr QueryParser parse it to?
 
 ![image](https://user-images.githubusercontent.com/22542670/41504841-8fb771aa-7218-11e8-9b06-a83a6dceca70.png)
 
@@ -29,7 +29,6 @@ The original Lucene query parser would parse our above query using simple Disjun
 - **Reality with this approach:** A document that has 2 mentions of term ```red``` in two fields will end up getting the same score as a document that talks about ```red and apple```. 
 - **Why is that so??** This is because **`two mentions of term red`** will get 2 hits. Likewise **`One mention of red and one mention of apple`** will also get 2 hits in this case.
 - What users typically expect is documents with ```red apple’s```, not just ```red things``` nor just ```apple things```! 
-http://mail-archives.apache.org/mod_mbox/lucene-solr-user/201703.mbox/%3cCALG6HL8W_cPeXCYnVKs2eSpDsTtcZ8_RbcYqWr+ZPoXwU5APPQ@mail.gmail.com%3e 
 
 ### 1.4 Fix: 
 - Give importance to terms i.e., **Go Term-Centric from Field-centric**
@@ -42,7 +41,7 @@ http://mail-archives.apache.org/mod_mbox/lucene-solr-user/201703.mbox/%3cCALG6HL
 Documents containing most user's search terms should get higher score.
 
 ### 2.2 Parsing Style:
-DisMax takes per-term maximum and adds them together as shown below: 
+DisMax takes per-term maximum and waeves them together as shown below: 
 ```markdown
 (title:red | description:red) OR (title:apple | description:apple)
 
@@ -55,7 +54,7 @@ OR operator denotes disjunction and
 ![image](https://user-images.githubusercontent.com/22542670/41509173-97516c68-726d-11e8-841a-c04874715560.png)
 
 ### 2.3 Pros:
-Here the highest scored result will have BOTH search terms. So essentially a document that has both red and apple will come to the top. This strategy is coined as **term centric**.
+Here the highest scored result will have BOTH search terms. So essentially a document that has both red and apple will come to the top. This is **term centric** strategy.
 
 ### 2.4 Cons:
 If u notice in the above workflow, the user query is first tokenised by whitespace and then passed down to field analysers. Splitting user query before applying analysers will break some other expected behaviours like multi-word synonyms, shingles and n-gram analysers at query-time. This is because these analysers can't see across whitespace boundaries. For example:
@@ -102,13 +101,17 @@ Query parsing with sow=false can flip in surprising ways between term-centric to
 
 ### 3.4 Sow Analysis:
 1. With sow, user got more control and flexibility to change query parser behaviour by enabling different query-time field analysers such as autoGeneratePhraseQueries, synonyms, stopwords etc.
-2. We have also seen how the resulting parsed query could flip between term-centric and field-centric based on field settings and whether all fields specified in query share same settings or not.
-3. In general, we’ve observed that ```sow=false``` setting along with ```autoGeneratePhraseQueries=true to handle synonyms settings``` creates in general a saner term-centric query.
+2. We have also seen how the resulting parsed query could flip between term-centric and field-centric based on field settings.
+3. In general, we’ve observed that ```sow=false``` setting along with ```autoGeneratePhraseQueries=true to handle synonyms ``` creates in general a saner term-centric query.
  
 ## 4. Conclusion:
-1. We've seen that Solr can flip between generating term-centric VS field-centric queries depending on our syntax, field settings, analysis chain and query fields.
-2. **Recommendation: Keep It Simple**. In my experience, the term-centric syntax that comes with autoGeneratePhraseQueries and sow=false provides pretty good default search results. 
-3. One can always consider trial and errors with solr-explain i.e., by adding debugQuery=true
+1. Term-Centric: Biases documents containing most user's search terms will get higher score.
+2. Field-Centric: Chooses documents with best matching field.
+![image](https://user-images.githubusercontent.com/22542670/41510228-720897fe-727e-11e8-9361-d3d94ea889ec.png)
+
+3. We've seen that Solr can flip between generating term-centric VS field-centric queries depending on our syntax, field settings, analysis chain and query fields.
+4. **Recommendation: Keep It Simple**. In my experience, the term-centric syntax that comes with autoGeneratePhraseQueries and sow=false provides pretty good default search results. 
+5. One can always consider trial and errors with solr-explain i.e., by adding debugQuery=true
 param to our query and see the details of how our queries are transformed into Lucene syntax.
 
 ## Appendix:
