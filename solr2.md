@@ -18,10 +18,8 @@ The original Lucene query parser would parse our above query using simple Disjun
 (title:red OR title:apple) OR (description:red OR description:apple)
 ```
 
-#### 1.2 Analysis
-- ```(title:red OR title:apple)```: looks for terms `red` and `apple` in `title` field
-- ```(description:red OR description:apple)```: looks for terms `red` and `apple` in `description` field
-- Its more **field-centric** i.e., it does field-wise lookup of all the user's search terms.
+#### 1.2 Analysis - This style is more FIELD-CENTRIC!!
+![image](https://user-images.githubusercontent.com/22542670/41508465-ea11ba9e-7262-11e8-884d-4f4669d91413.png)
 
 #### Cons: 
 - **User's Expectation:** Users typically expect documents with `red apple’s` to get higher score than documents having just `red things` or just `apple things`! 
