@@ -70,10 +70,9 @@ Based on his query needs, user should be given control on whether tokenisation s
 ## 3. SOW - Split on Whitespace param for DisMax
 
 ### 3.1 sow:
-This parameter decides whether to split each of the query terms by whitespace or not before applying field analysers/filters. 
-- **sow=true:** When true, parser will split terms in user query by space before sending to analysis.
-In this case, query parsing will be term-centric as discussed above in Dismax parser section.
-- **sow=false:** When false, parser will first send the terms for analysis before generating tokens. sow=false will follow following algorithm:
+This parameter decides whether to split each of the query terms by whitespace or not before applying field analysers/filters.
+- **sow=true:** When true, parser will tokenize/split the terms in user query by space and invokes text-analysis speparately for each individual token. In this case, query parsing will be term-centric as discussed above in Dismax parser section.
+- **sow=false:** When false, parser will first pass the terms for analysis before splitting them into tokens. sow=false will follow below algorithm:
     1.	For each of the query fields (i.e., title and description in our case), build field-centric queries based on each field’s analyzers & settings.
     2.	Each of the generated field-centric queries are put together attempting to build a single term-centric query.
 Query parsing with sow=false can flip in surprising ways between term-centric to field-centric. To illustrate this better, let’s take examples for each case.
@@ -82,7 +81,10 @@ Query parsing with sow=false can flip in surprising ways between term-centric to
 1. **Query:** ```q=the red apple&qf=title,description&sow=false```
 2. **```title``` field setting:** has StopWord filter with “the” as stop-word
 3. **```description``` field setting:** None
-4. **Parsed query:** ```(title:red | title:apple) OR (description:the | description:red | description:apple)```
+4. **Parsed query:**  Solr parsed this and generated following query
+```markdown
+(title:red | title:apple) OR (description:the | description:red | description:apple)
+```
 5. **Analysis:** Each clause is picking best match per field. **`field-centric!!`**
 
 ### 3.3 Case2: query fields share same settings
@@ -90,12 +92,25 @@ Query parsing with sow=false can flip in surprising ways between term-centric to
 2. **```title``` and ```description``` field settings:**
     1. has Synonym analyser with `“usa, unites states, america”` entry
     2. autoGeneratePhraseQueries=true
-3. **Parsed query:**
-markdown```
+3. **Parsed query:** Solr parsed this and generated following query
+```markdown
 ((title:usa title:”united states” title:america) | (description:usa description:”united states” description:america)) OR
     (title:foreign | description:foreign) OR
-    (title:policies | description:policies)```
+    (title:policies | description:policies)
+```
 4. **Analysis:** Each dismax clause is picking the best match per term. **`term-centric!!`**
+
+### 3.4 Sow Analysis:
+1. With sow, user got more control and flexibility to change query parser behaviour by enabling different query-time field analysers such as autoGeneratePhraseQueries, synonyms, stopwords etc.
+2. We have also seen how the resulting parsed query could flip between term-centric and field-centric based on field settings and whether all fields specified in query share same settings or not.
+3. In general, we’ve observed that ```sow=false``` setting along with ```autoGeneratePhraseQueries=true to handle synonyms settings``` creates generally a saner term-centric query.
+4. 
+## 4. Conclusion:
+1. We've seen that Solr can flip between generating term-centric VS field-centric queries depending on our syntax, field settings, analysis chain and query fields.
+2. 
+recommendation: My motto with this stuff is “Keep It Simple Stupid”. I like the term-centric syntax that comes with autoGeneratePhraseQueries and sow=false. In our experience it provides pretty good default search results. 
+
+There’s not a better way than considerable trial and error to see how your syntax, field settings, analysis chain, query fields, and user queries transform into Lucene syntax using edismax.
 
 ## Appendix:
 
