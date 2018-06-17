@@ -5,8 +5,8 @@ QueryParser is mainly responsible to:
 2. **Tranform TokenStream** to either filter, edit or add new tokens by applying analysers like shingles, synonyms, auto phrasing, taxonomies etc as per user's configuration on the field. 
 3. **Generate [Lucene's Query](https://github.com/apache/lucene-solr/blob/master/lucene/core/src/java/org/apache/lucene/search/Query.java)** object out of TokenStream.
 
-All of this is fine, but, **Does Solr generate TERM-CENTRIC Query or FIELD-CENTRIC QUERY?**
-To rephrase above question, for a user query like **`q=red+apple&qf=title,description`**, where he is looking for documents talking about **`red apples`**, Does Solr parse it in a term-centric or field-centric approach?
+### All of this is fine, but, **Does Solr generate TERM-CENTRIC Query or FIELD-CENTRIC QUERY?**
+For a user query like **`q=red+apple&qf=title,description`**, where user is looking for documents talking about **`red apples`**, which of the following two options does Solr parse it?
 
 ![image](https://user-images.githubusercontent.com/22542670/41504841-8fb771aa-7218-11e8-9b06-a83a6dceca70.png)
 
@@ -58,7 +58,10 @@ OR operator denotes disjunction and
 Here the highest scored result will have BOTH search terms. So essentially a document that has both red and apple will come to the top. This strategy is coined as **term centric**.
 
 ### 2.4 Cons:
-If u notice in the above workflow, the user query is first tokenised by whitespace and then passed down to field analysers. Splitting user query before applying analysers will break some other expected behaviours like multi-word synonyms, shingles and n-gram analysers at query-time. This is because these analysers can't see across whitespace boundaries.
+If u notice in the above workflow, the user query is first tokenised by whitespace and then passed down to field analysers. Splitting user query before applying analysers will break some other expected behaviours like multi-word synonyms, shingles and n-gram analysers at query-time. This is because these analysers can't see across whitespace boundaries. For example:
+- Consider ```q=united states of america``` query with SynonymFilter having ```usa,america, united states of america``` entry.
+- Now, if we tokenize i.e., split by whitespace before applying SynonymFilter, then we'll see 4 tokens ```united```, ```states```, ```of```, ```america```. This way, SynonymFilter will match these to any synonyms.
+- If we apply SynonymFilter before tokenizer, then it'll see ```united states of america``` mention and appropriately add its synonyms ```usa``` and ```america``` to user query.
 
 ### 2.5 Fix:
 Based on his query needs, user should be given control on whether tokenisation should happen before or after applying field analysers. For this purpose, as part of [SOLR-9185 change in Solr 6.5](https://lucene.apache.org/solr/guide/6_6/the-extended-dismax-query-parser.html#TheExtendedDisMaxQueryParser-ThesowParameter),  a parameter called ```sow a.k.a split-on-whitespace``` is introduced.
