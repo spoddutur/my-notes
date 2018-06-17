@@ -66,7 +66,7 @@ If u notice in the above workflow, the user query is first tokenised by whitespa
 ### 2.5 Fix:
 Based on his query needs, user should be given control on whether tokenisation should happen before or after applying field analysers. For this purpose, as part of [SOLR-9185 change in Solr 6.5](https://lucene.apache.org/solr/guide/6_6/the-extended-dismax-query-parser.html#TheExtendedDisMaxQueryParser-ThesowParameter),  a parameter called ```sow a.k.a split-on-whitespace``` is introduced.
 
-## 3. SOW - Split on Whitespace param for DisMax
+## 3. SOW - Split on Whitespace param for ExtendedDisMaxQueryParser
 
 ### 3.1 sow:
 This parameter decides whether to split each of the query terms by whitespace or not before applying field analysers/filters.
@@ -111,5 +111,6 @@ Query parsing with sow=false can flip in surprising ways between term-centric to
 
 3. We've seen that Solr can flip between generating term-centric VS field-centric queries depending on our syntax, field settings, analysis chain and query fields.
 4. **Recommendation: Keep It Simple**. In my experience, the term-centric syntax that comes with autoGeneratePhraseQueries and sow=false provides pretty good default search results. 
+5. Note that Solr also promoted the usage of `sow=false` by changing its default value to false in [Solr 7.0](https://lucene.apache.org/solr/guide/7_0/major-changes-in-solr-7.html). Until then, `sow`'s default value was true.
 5. One can always consider trial and errors with solr-explain i.e., by adding debugQuery=true
 param to our query and see the details of how our queries are transformed into Lucene syntax.
