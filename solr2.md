@@ -36,24 +36,26 @@ http://mail-archives.apache.org/mod_mbox/lucene-solr-user/201703.mbox/%3cCALG6HL
 
 ## 2. DisjunctionMaxQueryParser
 
-#### 2.1 Objective:
+### 2.1 Objective:
 Documents containing most user's search terms should get higher score.
 
-#### 2.2 Parsing Style:
+### 2.2 Parsing Style:
 DisMax takes per-term maximum and adds them together as shown below: 
 ```markdown
 +((title:red | description:red) (title:apple | description:apple))
 
-+ => denotes disjunction or AND operator
-| -> denotes max operator
-(title:red | description:red) -> takes max tf-idf score for term `red` in title and description fields
-(title:apple | description:apple) -> takes max tf-idf score for term `apple` in title and description fields
-Its more **term-centric** i.e., looks for documents containing all users search terms.
+where
++ operator denotes disjunction or AND operator
+| operator denotes max operator
 ```
-#### 2.3 Pros:
+
+### 2.3 Analysis:
+![image](https://user-images.githubusercontent.com/22542670/41509173-97516c68-726d-11e8-841a-c04874715560.png)
+
+### 2.3 Pros:
 Here the highest scored result will have BOTH search terms. So essentially a document that has both red and apple will come to the top. This strategy is coined as **term centri**.
 
-#### 2.4 Cons:
+### 2.4 Cons:
 
 
 ## Appendix:
