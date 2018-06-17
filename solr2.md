@@ -42,10 +42,10 @@ Documents containing most user's search terms should get higher score.
 ### 2.2 Parsing Style:
 DisMax takes per-term maximum and adds them together as shown below: 
 ```markdown
-+((title:red | description:red) (title:apple | description:apple))
+(title:red | description:red) OR (title:apple | description:apple)
 
 where
-+ operator denotes disjunction or AND operator
+OR operator denotes disjunction and
 | operator denotes max operator
 ```
 
@@ -53,11 +53,24 @@ where
 ![image](https://user-images.githubusercontent.com/22542670/41509173-97516c68-726d-11e8-841a-c04874715560.png)
 
 ### 2.3 Pros:
-Here the highest scored result will have BOTH search terms. So essentially a document that has both red and apple will come to the top. This strategy is coined as **term centri**.
+Here the highest scored result will have BOTH search terms. So essentially a document that has both red and apple will come to the top. This strategy is coined as **term centric**.
 
 ### 2.4 Cons:
+If u notice in the above workflow, the user query is first tokenised by whitespace and then passed down to field analysers. Splitting user query before applying analysers will break some other expected behaviours like multi-word synonyms, shingles and n-gram analysers at query-time. This is because these analysers can't see across whitespace boundaries.
 
+### 2.5 Fix:
+Based on his query needs, user should be given control on whether tokenisation should happen before or after applying field analysers. For this purpose, as part of [SOLR-9185 change in Solr 6.5](https://lucene.apache.org/solr/guide/6_6/the-extended-dismax-query-parser.html#TheExtendedDisMaxQueryParser-ThesowParameter),  a parameter called ```sow a.k.a split-on-whitespace``` is introduced.
 
+## 3. SOW - Split on Whitespace param for DisMax
+
+### 3.1 sow:
+This parameter decides whether to split each of the query terms by whitespace or not before applying field analysers/filters. 
+- **sow=true:** When true, parser will split terms in user query by space before sending to analysis.
+In this case, query parsing will be same as pre-Solr 6.5 discussed above.
+- **sow=false:** When false, parser will first send the terms for analysis before generating tokens. sow=false will follow following algorithm:
+    1.	For each field passed into qf (title, description above), build field-centric queries based on each field’s analysis & settings.
+    2.	Each of the generated field-centric queries are put together attempting to build a single term-centric query.
+Query parsing with sow=false can flip in surprising ways between term-centric to field-centric. To illustrate this better, let’s take examples for each case.
 ## Appendix:
 
 https://github.com/apache/lucene-solr/blob/master/solr/core/src/java/org/apache/solr/search/QueryParsing.java - parseOP() - default operator is OR
