@@ -8,20 +8,9 @@ In this article, I'll be focusing mainly on:
 ## Myth1: On Query Parsing
 Consider search query such as `q=red+apple&qf=title,description`. Usual perception for the above query is that it will return matching documents which contains the terms red and apple in title and description fields respectively. But in reality, which of the following two options will this actually get parsed to:
 
-#### Option1: 
-```markdown
-+((title:blue | title:apple) 
-(description:blue | description:apple))
-````
+![image](https://user-images.githubusercontent.com/22542670/41504841-8fb771aa-7218-11e8-9b06-a83a6dceca70.png)
 
-#### Option2:
-```markdown
-+((title:red|description:red) 
-    (title:apple | description:apple))
-```
-#### Myth:
-**For `q=red+apple&qf=title,description` user query, which of the above two options does solr translate it to?**
-<br/> Obviously, each of these query interpretations mean different and will generate different search results. If you also don’t have the clarity on which of the above two queries solr generates, then go ahead and read the rest of the article.
+Obviously, each of these query interpretations mean different and will generate different search results. If you also don’t have the clarity on which of the above two queries solr generates, then go ahead and read the rest of the article.
 
 ## Myth2: On Scoring with FieldBoosts
 Another common misconception that I noticed is a general belief that queries with field boosts like `qf=description^1 title^5 ` will assign cumulative score of `(title-match-score)^5 + (description-match-score)^1` to the document. **But in reality, this is not how documents get scored.**
