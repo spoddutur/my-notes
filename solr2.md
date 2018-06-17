@@ -12,20 +12,21 @@ q=red apple&qf=title,description
 
 ## 1. Original Lucene Query Parser
 
-#### 1.1 Parsing Style:
+### 1.1 Parsing Style:
 The original Lucene query parser would parse our above query using simple Disjunction(i.e., OR) operator like this:
 ```markdown
 (title:red OR title:apple) OR (description:red OR description:apple)
 ```
 
-#### 1.2 Analysis - This style is more FIELD-CENTRIC!!
+### 1.2 Analysis - This style is more FIELD-CENTRIC!!
 ![image](https://user-images.githubusercontent.com/22542670/41508567-a4c539a0-7264-11e8-9503-5a2933fa2f60.png)
 
-#### Cons: Documents talking about just red things or apples might get higher score over red-apple's
-- **User's Expectation:** Users typically expect documents with `red apple’s` to get higher score than documents having just `red things` or just `apple things`! 
-- **Reality with this approach:** A document that has 2 mentions of term `red` in two fields will end up getting the same score as a document that talks about `red and apple`. 
+### 1.3 Cons: 
+**`Documents talking about either red things or apple things might get higher score over documents talking about both red-apple's`**
+- **User's Expectation:** Users typically expect documents with ```red apple’s``` to get higher score than documents having just ```red things``` or just ```apple things```! 
+- **Reality with this approach:** A document that has 2 mentions of term ```red``` in two fields will end up getting the same score as a document that talks about ```red and apple```. 
 - **Why is that so??** This is because **`two mentions of term red`** will get 2 hits. Likewise **`One mention of red and one mention of apple`** will also get 2 hits in this case.
-- What users typically expect is documents with `red apple’s`, not just `red things` nor just `apple things`! 
+- What users typically expect is documents with ```red apple’s```, not just ```red things``` nor just ```apple things```! 
 http://mail-archives.apache.org/mod_mbox/lucene-solr-user/201703.mbox/%3cCALG6HL8W_cPeXCYnVKs2eSpDsTtcZ8_RbcYqWr+ZPoXwU5APPQ@mail.gmail.com%3e 
 
 #### Fix: 
