@@ -74,7 +74,7 @@ This parameter decides whether to split each of the query terms by whitespace or
 - **sow=true:** When true, parser will split terms in user query by space before sending to analysis.
 In this case, query parsing will be same as pre-Solr 6.5 discussed above.
 - **sow=false:** When false, parser will first send the terms for analysis before generating tokens. sow=false will follow following algorithm:
-    1.	For each field passed into qf (title, description above), build field-centric queries based on each field’s analysis & settings.
+    1.	For each of the query fields (i.e., title and description in our case), build field-centric queries based on each field’s analyzers & settings.
     2.	Each of the generated field-centric queries are put together attempting to build a single term-centric query.
 Query parsing with sow=false can flip in surprising ways between term-centric to field-centric. To illustrate this better, let’s take examples for each case.
 
