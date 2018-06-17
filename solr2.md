@@ -105,12 +105,12 @@ Query parsing with sow=false can flip in surprising ways between term-centric to
 3. In general, we’ve observed that ```sow=false``` setting along with ```autoGeneratePhraseQueries=true to handle synonyms ``` creates in general a saner term-centric query.
  
 ## 4. Conclusion:
-1. Term-Centric: Biases documents containing most user's search terms will get higher score.
-2. Field-Centric: Chooses documents with best matching field.
+1. We've seen that term-centric approach biases documents containing most user's search terms will get higher score.
+2. Field-Centric approach chooses documents with best matching field.
 ![image](https://user-images.githubusercontent.com/22542670/41510228-720897fe-727e-11e8-9361-d3d94ea889ec.png)
 
-3. We've seen that Solr can flip between generating term-centric VS field-centric queries depending on our syntax, field settings, analysis chain and query fields.
-4. **Recommendation: Keep It Simple**. In my experience, the term-centric syntax that comes with autoGeneratePhraseQueries and sow=false provides pretty good default search results. 
+3. We've also seen that Solr can flip between generating term-centric VS field-centric queries depending on our syntax, field settings, analysis chain and query fields.
+4. **Recommendation: Keep It Simple**. In my experience, the term-centric syntax that comes with autoGeneratePhraseQueries=true and sow=false provides pretty good default search results. 
 5. Note that Solr also promoted the usage of `sow=false` by changing its default value to false in [Solr 7.0](https://lucene.apache.org/solr/guide/7_0/major-changes-in-solr-7.html). Until then, `sow`'s default value was true.
 5. One can always consider trial and errors with solr-explain i.e., by adding debugQuery=true
 param to our query and see the details of how our queries are transformed into Lucene syntax.
