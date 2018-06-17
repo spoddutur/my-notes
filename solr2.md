@@ -2,13 +2,10 @@
 
 QueryParser is mainly responsible for:
 1. Tokenize user's string query to generate [TokenStream](https://github.com/apache/lucene-solr/blob/master/lucene/core/src/java/org/apache/lucene/analysis/TokenStream.java).
-2. Apply any analyzers to tranform TokenStream as per user's configuration to either filter, edit or add new tokens. 
+2. Tranform TokenStream by applying analysers like shingles, synonyms, auto phrasing, taxonomies etc as per user's configuration to either filter, edit or add new tokens. 
 3. Generate [Lucene's Query](https://github.com/apache/lucene-solr/blob/master/lucene/core/src/java/org/apache/lucene/search/Query.java) object out of TokenStream.
 
-This article is an attempt to give a preview of how solr's QueryParser progressed from just simple parsing using mainly conjunction/disjunction operators to today's advanced graph-based TokenStream. For this, let’s go little back into history.
-
-### Query used to evaluate different version of solr query parser
-We'll use below query to understand the different variants of query parsings as it advanceded:
+This article is an attempt to give a preview of how solr's QueryParser progressed from just simple parsing using mainly conjunction/disjunction operators to handling today's advanced graph-representation of TokenStream. For this, let’s go little back into history. To illustrate this better, we'll take following user query and analyse different variants of parsing it.
 ```markdown
 q=red apple&qf=title,description
 ```
@@ -16,25 +13,26 @@ q=red apple&qf=title,description
 ## 1. Original Lucene Query Parser
 
 #### 1.1 Parsing Style:
-The original Lucene query parser would parse our above query using simple conjunction(i.e., AND)/Disjunction(i.e., OR) like this:
+The original Lucene query parser would parse our above query using simple Disjunction(i.e., OR) operator like this:
 ```markdown
 (title:red OR title:apple) OR (description:red OR description:apple)
-
-**Analysis**
-(title:red OR title:apple) -> looks for red and apple terms in title field
-(description:red OR description:apple) -> looks for red and apple terms in description field
-Its more **field-centric** i.e., looks for users search terms per field.
 ```
+
+#### 1.2 Analysis
+- `(title:red OR title:apple)`: looks for terms `red` and `apple` in `title` field
+- `(description:red OR description:apple)`: looks for terms `red` and `apple` in `description` field
+- Its more **field-centric** i.e., it does field-wise lookup of all the user's search terms.
+
 #### Cons: 
-- **User's Expectation?** users typically expect documents with `red apple’s` to get higher score than documents having just `red things` or just `apple things`! 
-- **Reality?** A document that has 2 mentions of term `red` in two fields will end up getting the same score as a document that talks about `red and apple`. 
+- **User's Expectation:** Users typically expect documents with `red apple’s` to get higher score than documents having just `red things` or just `apple things`! 
+- **Reality:** A document that has 2 mentions of term `red` in two fields will end up getting the same score as a document that talks about `red and apple`. 
 - **Why is that so??** This is because **`two mentions of term red`** will get 2 hits. Likewise **`One mention of red and one mention of apple`** will also get 2 hits for **`(title:red OR description:apple) OR (text:red OR description:apple)`** query.
 - What users typically expect is documents with `red apple’s`, not just `red things` nor just `apple things`! 
 http://mail-archives.apache.org/mod_mbox/lucene-solr-user/201703.mbox/%3cCALG6HL8W_cPeXCYnVKs2eSpDsTtcZ8_RbcYqWr+ZPoXwU5APPQ@mail.gmail.com%3e 
 
 #### Fix: 
 - Change the parser to take per-term maximum to bias results towards documents containing more of user's search terms.
-- **TADA - Came DisjunctionMaxQueryParser!!**
+- **TADAAA - Came DisjunctionMaxQueryParser!!**
 
 ## 2. DisjunctionMaxQueryParser
 
