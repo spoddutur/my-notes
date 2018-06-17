@@ -85,7 +85,7 @@ Query parsing with sow=false can flip in surprising ways between term-centric to
     1. has Synonym analyser with “usa, unites states, america” entry
 	2. autoGeneratePhraseQueries=true
 3. **Parsed query:**
-```((title:usa title:”united states” title:america) | (description:usa description:”united states” description:america)) OR
+markdown```((title:usa title:”united states” title:america) | (description:usa description:”united states” description:america)) OR
     (title:foreign | description:foreign) OR
     (title:policies | description:policies)```
 4. **Analysis:** Each dismax clause is picking the best match per term. **`term-centric!!`**
