@@ -60,8 +60,8 @@ Here the highest scored result will have BOTH search terms. So essentially a doc
 ### 2.4 Cons:
 If u notice in the above workflow, the user query is first tokenised by whitespace and then passed down to field analysers. Splitting user query before applying analysers will break some other expected behaviours like multi-word synonyms, shingles and n-gram analysers at query-time. This is because these analysers can't see across whitespace boundaries. For example:
 - Consider **`q=united states of america`** query with SynonymFilter having **`usa,america, united states of america`** entry.
-- Now, if we tokenize i.e., split by whitespace before applying SynonymFilter, then **it will see 4 different tokens** ```united```, ```states```, ```of``` and ```america```. So, this way, SynonymFilter will not match these to any synonyms.
-- If we apply SynonymFilter before tokenizer, then it'll see ```united states of america``` mention and **appropriately add its synonyms** ```usa``` and ```america``` to user query.
+- **Tokenize before field analyzers**:  Now, if we tokenize i.e., split by whitespace before applying SynonymFilter, then **it will see 4 different tokens** ```united```, ```states```, ```of``` and ```america```. So, this way, SynonymFilter will not match any of these 4 tokens to any synonyms because it has synonym entry for ```united states of america``` as one single token.
+- **Tokenize after field analyzers:** If we apply SynonymFilter before tokenizer, then it'll see ```united states of america``` mention and **appropriately add its synonyms** ```usa``` and ```america``` to user query.
 - So, spliiting query into tokens before applying analysers will break some expected behaviours
 
 ### 2.5 Fix:
