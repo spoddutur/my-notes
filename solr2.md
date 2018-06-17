@@ -29,10 +29,10 @@ The original Lucene query parser would parse our above query using simple Disjun
 - What users typically expect is documents with ```red apple’s```, not just ```red things``` nor just ```apple things```! 
 http://mail-archives.apache.org/mod_mbox/lucene-solr-user/201703.mbox/%3cCALG6HL8W_cPeXCYnVKs2eSpDsTtcZ8_RbcYqWr+ZPoXwU5APPQ@mail.gmail.com%3e 
 
-#### Fix: 
+### 1.4 Fix: 
 - Give importance to terms i.e., **Go Term-Centric from Field-centric**
-- For this, a new parser was added to take per-term maximum to bias results towards documents containing more of user's search terms.
-- **TADAAA - Came DisjunctionMaxQueryParser!!**
+- **`For this, a new parser was added to take per-term maximum to bias results towards documents containing more of user's search terms.`**
+- **`TADAAA - Came DisjunctionMaxQueryParser!!`**
 
 ## 2. DisjunctionMaxQueryParser
 
