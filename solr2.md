@@ -19,7 +19,7 @@ The original Lucene query parser would parse our above query using simple Disjun
 ```
 
 #### 1.2 Analysis - This style is more FIELD-CENTRIC!!
-![image](https://user-images.githubusercontent.com/22542670/41508465-ea11ba9e-7262-11e8-884d-4f4669d91413.png)
+![image](https://user-images.githubusercontent.com/22542670/41508488-34fb01aa-7263-11e8-99d0-87e37cd70b6b.png)
 
 #### Cons: 
 - **User's Expectation:** Users typically expect documents with `red apple’s` to get higher score than documents having just `red things` or just `apple things`! 
