@@ -5,10 +5,12 @@ QueryParser is mainly responsible to:
 2. **Tranform TokenStream** to either filter, edit or add new tokens by applying analysers like shingles, synonyms, auto phrasing, taxonomies etc as per user's configuration on the field. 
 3. **Generate [Lucene's Query](https://github.com/apache/lucene-solr/blob/master/lucene/core/src/java/org/apache/lucene/search/Query.java)** object out of TokenStream.
 
-This article is an attempt to give a preview of how solr's QueryParser progressed from just simple parsing using mainly conjunction/disjunction operators to handling today's advanced graph-representation of TokenStreams i.e., those produced by analysers like SynonymGraphFilter etc. For this, let’s go little back into history and analyse following query as to how different versions of QueryParsers parsed it.
-```markdown
-q=red apple&qf=title,description
-```
+All of this is fine, but, **Does Solr generate TERM-CENTRIC Query or FIELD-CENTRIC QUERY?**
+To rephrase above question, for a user query like **`q=red+apple&qf=title,description`**, where he is looking for documents talking about **`red apples`**, Does Solr parse it in a term-centric or field-centric approach?
+
+![image](https://user-images.githubusercontent.com/22542670/41504841-8fb771aa-7218-11e8-9b06-a83a6dceca70.png)
+
+This article is an attempt to understand answer for above question. For this, let’s go little back into history and analyse  the same **`red apple`** query and see as to how different versions of QueryParsers will parse it.
 
 ## 1. Original Lucene Query Parser
 
