@@ -62,7 +62,7 @@ If u notice in the above workflow, the user query is first tokenised by whitespa
 - Consider **`q=united states of america`** query with SynonymFilter having **`usa,america, united states of america`** entry.
 - **Tokenize before field analyzers**:  Now, if we tokenize i.e., split by whitespace before applying SynonymFilter, then **it will see 4 different tokens** ```united```, ```states```, ```of``` and ```america```. So, this way, SynonymFilter will not match any of these 4 tokens to any synonyms because it has synonym entry for ```united states of america``` as one single token.
 - **Tokenize after field analyzers:** If we apply SynonymFilter before tokenizer, then it'll see ```united states of america``` mention and **appropriately add its synonyms** ```usa``` and ```america``` to user query.
-- So, spliiting query into tokens before applying analysers will break some expected behaviours
+- So, splitting query into tokens before applying analysers will break some expected behaviours
 
 ### 2.5 Fix:
 Based on his query needs, user should be given control on whether tokenisation should happen before or after applying field analysers. For this purpose, as part of [SOLR-9185 change in Solr 6.5](https://lucene.apache.org/solr/guide/6_6/the-extended-dismax-query-parser.html#TheExtendedDisMaxQueryParser-ThesowParameter),  a parameter called ```sow a.k.a split-on-whitespace``` is introduced.
@@ -72,26 +72,27 @@ Based on his query needs, user should be given control on whether tokenisation s
 ### 3.1 sow:
 This parameter decides whether to split each of the query terms by whitespace or not before applying field analysers/filters. 
 - **sow=true:** When true, parser will split terms in user query by space before sending to analysis.
-In this case, query parsing will be same as pre-Solr 6.5 discussed above.
+In this case, query parsing will be term-centric as discussed above in Dismax parser section.
 - **sow=false:** When false, parser will first send the terms for analysis before generating tokens. sow=false will follow following algorithm:
     1.	For each of the query fields (i.e., title and description in our case), build field-centric queries based on each field’s analyzers & settings.
     2.	Each of the generated field-centric queries are put together attempting to build a single term-centric query.
 Query parsing with sow=false can flip in surprising ways between term-centric to field-centric. To illustrate this better, let’s take examples for each case.
 
-### 3.2 Case1: fields mentioned in qf having different settings
-1. **Query:** ```q=the+red+apple&qf=title,description&sow=false```
+### 3.2 Case1: query fields having different settings
+1. **Query:** ```q=the red apple&qf=title,description&sow=false```
 2. **```title``` field setting:** has StopWord filter with “the” as stop-word
-3. **```description``` field settings:** None
-4. **Parsed query:** ```(title:red | title:apple) (description:the | description:red | description:apple)```
+3. **```description``` field setting:** None
+4. **Parsed query:** ```(title:red | title:apple) OR (description:the | description:red | description:apple)```
 5. **Analysis:** Each clause is picking best match per field. **`field-centric!!`**
 
-### 3.3 Case2: all fields mentioned in qf share same settings
+### 3.3 Case2: query fields share same settings
 1. **Query:** ```q=usa foreign policies&qf=title,description&sow=false```
 2. **```title``` and ```description``` field settings:**
-    1. has Synonym analyser with “usa, unites states, america” entry
-	2. autoGeneratePhraseQueries=true
+    1. has Synonym analyser with `“usa, unites states, america”` entry
+    2. autoGeneratePhraseQueries=true
 3. **Parsed query:**
-markdown```((title:usa title:”united states” title:america) | (description:usa description:”united states” description:america)) OR
+markdown```
+((title:usa title:”united states” title:america) | (description:usa description:”united states” description:america)) OR
     (title:foreign | description:foreign) OR
     (title:policies | description:policies)```
 4. **Analysis:** Each dismax clause is picking the best match per term. **`term-centric!!`**
