@@ -1,6 +1,11 @@
-# How Solr Query Parser Advanced
+# How Solr parses our Query
 
-This article is an attempt to give a preview of how solr query parser progressed from just simple Conjunction/Disjunction parsing today's graph representations of token streams. For this, let’s go little back into history. 
+QueryParser is mainly responsible for:
+1. Tokenize user's string query to generate [TokenStream](https://github.com/apache/lucene-solr/blob/master/lucene/core/src/java/org/apache/lucene/analysis/TokenStream.java).
+2. Apply any analyzers to tranform TokenStream as per user's configuration to either filter, edit or add new tokens. 
+3. Generate [Lucene's Query](https://github.com/apache/lucene-solr/blob/master/lucene/core/src/java/org/apache/lucene/search/Query.java) object out of TokenStream.
+
+This article is an attempt to give a preview of how solr's QueryParser progressed from just simple parsing using mainly conjunction/disjunction operators to today's advanced graph-based TokenStream. For this, let’s go little back into history.
 
 ### Query used to evaluate different version of solr query parser
 We'll use below query to understand the different variants of query parsings as it advanceded:
@@ -52,3 +57,7 @@ Here the highest scored result will have BOTH search terms. So essentially a doc
 
 #### 2.4 Cons:
 
+
+## Appendix:
+
+https://github.com/apache/lucene-solr/blob/master/solr/core/src/java/org/apache/solr/search/QueryParsing.java - parseOP() - default operator is OR
