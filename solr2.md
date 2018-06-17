@@ -5,7 +5,7 @@ QueryParser is mainly responsible to:
 2. **Tranform TokenStream** to either filter, edit or add new tokens by applying analysers like shingles, synonyms, auto phrasing, taxonomies etc as per user's configuration on the field. 
 3. **Generate [Lucene's Query](https://github.com/apache/lucene-solr/blob/master/lucene/core/src/java/org/apache/lucene/search/Query.java)** object out of TokenStream.
 
-This article is an attempt to give a preview of how solr's QueryParser progressed from just simple parsing using mainly conjunction/disjunction operators to handling today's advanced graph-representation of TokenStreams i.e., those produced by analysers like SynonymGraphFilter etc. For this, let’s go little back into history and analyse following query with different variants to parse it.
+This article is an attempt to give a preview of how solr's QueryParser progressed from just simple parsing using mainly conjunction/disjunction operators to handling today's advanced graph-representation of TokenStreams i.e., those produced by analysers like SynonymGraphFilter etc. For this, let’s go little back into history and analyse following query as to how different versions of QueryParsers parsed it.
 ```markdown
 q=red apple&qf=title,description
 ```
@@ -19,8 +19,8 @@ The original Lucene query parser would parse our above query using simple Disjun
 ```
 
 #### 1.2 Analysis
-- `(title:red OR title:apple)`: looks for terms `red` and `apple` in `title` field
-- `(description:red OR description:apple)`: looks for terms `red` and `apple` in `description` field
+- ```(title:red OR title:apple)```: looks for terms `red` and `apple` in `title` field
+- ```(description:red OR description:apple)```: looks for terms `red` and `apple` in `description` field
 - Its more **field-centric** i.e., it does field-wise lookup of all the user's search terms.
 
 #### Cons: 
