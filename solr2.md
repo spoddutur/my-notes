@@ -71,6 +71,25 @@ In this case, query parsing will be same as pre-Solr 6.5 discussed above.
     1.	For each field passed into qf (title, description above), build field-centric queries based on each field’s analysis & settings.
     2.	Each of the generated field-centric queries are put together attempting to build a single term-centric query.
 Query parsing with sow=false can flip in surprising ways between term-centric to field-centric. To illustrate this better, let’s take examples for each case.
+
+### 3.2 Case1: fields mentioned in qf having different settings
+1. **Query:** ```q=the+red+apple&qf=title,description&sow=false```
+2. **```title``` field setting:** has StopWord filter with “the” as stop-word
+3. **```description``` field settings:** None
+4. **Parsed query:** ```(title:red | title:apple) (description:the | description:red | description:apple)```
+5. **Analysis:** Each clause is picking best match per field. **`field-centric!!`**
+
+### 3.3 Case2: all fields mentioned in qf share same settings
+1. **Query:** ```q=usa foreign policies&qf=title,description&sow=false```
+2. **```title``` and ```description``` field settings:**
+    1. has Synonym analyser with “usa, unites states, america” entry
+	2. autoGeneratePhraseQueries=true
+3. **Parsed query:**
+```((title:usa title:”united states” title:america) | (description:usa description:”united states” description:america)) OR
+    (title:foreign | description:foreign) OR
+    (title:policies | description:policies)```
+4. **Analysis:** Each dismax clause is picking the best match per term. **`term-centric!!`**
+
 ## Appendix:
 
 https://github.com/apache/lucene-solr/blob/master/solr/core/src/java/org/apache/solr/search/QueryParsing.java - parseOP() - default operator is OR
