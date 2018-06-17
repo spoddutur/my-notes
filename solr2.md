@@ -103,15 +103,13 @@ Query parsing with sow=false can flip in surprising ways between term-centric to
 ### 3.4 Sow Analysis:
 1. With sow, user got more control and flexibility to change query parser behaviour by enabling different query-time field analysers such as autoGeneratePhraseQueries, synonyms, stopwords etc.
 2. We have also seen how the resulting parsed query could flip between term-centric and field-centric based on field settings and whether all fields specified in query share same settings or not.
-3. In general, we’ve observed that ```sow=false``` setting along with ```autoGeneratePhraseQueries=true to handle synonyms settings``` creates generally a saner term-centric query.
-4. 
+3. In general, we’ve observed that ```sow=false``` setting along with ```autoGeneratePhraseQueries=true to handle synonyms settings``` creates in general a saner term-centric query.
+ 
 ## 4. Conclusion:
 1. We've seen that Solr can flip between generating term-centric VS field-centric queries depending on our syntax, field settings, analysis chain and query fields.
-2. 
-recommendation: My motto with this stuff is “Keep It Simple Stupid”. I like the term-centric syntax that comes with autoGeneratePhraseQueries and sow=false. In our experience it provides pretty good default search results. 
-
-There’s not a better way than considerable trial and error to see how your syntax, field settings, analysis chain, query fields, and user queries transform into Lucene syntax using edismax.
+2. **Recommendation: Keep It Simple**. In my experience, the term-centric syntax that comes with autoGeneratePhraseQueries and sow=false provides pretty good default search results. 
+3. One can always consider trial and errors with solr-explain i.e., by adding debugQuery=true
+param to our query and see the details of how our queries are transformed into Lucene syntax.
 
 ## Appendix:
-
 https://github.com/apache/lucene-solr/blob/master/solr/core/src/java/org/apache/solr/search/QueryParsing.java - parseOP() - default operator is OR
