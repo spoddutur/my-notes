@@ -13,38 +13,19 @@ In this article, am going to discuss about two things:
 1. **Myth1:** How above mentioned scoring is wrong and 
 2. **Myth2:** Inspite of boosting `title` field higher than `tags` field, the final results might show 100’s of good `tags` matches followed by good `title` matches. Following example illustrates this case: 
 
-With **`title^10 tags^7`** field boosts, a search on **`Chemotherapy & Cancer`** can return documents in following ranked order :
-1. Cancer Treatment Options and Technologies
-2. Cancer therapy advisor
-3. Chemotherapy: What it is, what to expect, side effects, and outlook
-4. Chemotherapy technology advancements
+With **`title^10 tags^7`** field boosts, a search on **`Handlooms`** can return documents in following ranked order :
+1. National awardees of Indian handicrafts to present their art at Heimtextil India & Ambiente India 
+3. See the best of Artificial Intelligence, 5D tech and more from IIT-D
+2. Amazon India launches Weavesmart on its marketplace 
+4. Weaving out of trouble: Handloom industry looks at Budget 2018 to solve woes
 
-#### Why aren't 3rd and 4rth documents which seem more relevant ranked higher over 2nd?
+#### Why aren't 3rd and 4rth documents which seem more relevant ranked higher over 1st and 2nd?
 
 ## Understand how scoring works
 To understand the myths mentioned above, its really important to get an understanding on how scoring works.
 ### Lucene's Field-Based Scoring:
 Lucene’s tf-idf scores are field-based where-in each field is its own universe.
 Let’s attempt to understand this field-based scores better with a sample query shown below. 
-
-### Documents Data: Listed below are four document’s titles and tags.
-```
-Doc1: 
-title: Cancer Treatment Options and Technologies
-tags: cancer, chemotherapy, radiation
-
-Doc2:
-title: Cancer therapy advisor
-tags: cancer, chemotherapy, radiation
-
-Doc3: 
-title: Chemotherapy: What it is, what to expect, side effects, and outlook
-tags: chemotherapy
-
-Doc4:
-title: Chemotherapy technology advancements
-tags: chemotherapy
-```
 
 ### Our SearchQuery:
 ```
@@ -112,7 +93,26 @@ So, there'll be 100's of good GRE score students before good TOEFL score student
 The same thing can happen with ```tags``` and ```title``` fields where tags scores will be by default higher over title scores. This is because, for text-based fields, field-length plays an important role in tf-idf score. Shorter the text, higher the score.
 - **tags** field is very terse and pointed capturing aboutness of the document. 
 - **title** field is more like short text.
-So naturally, ```tags``` field matches can be scored higher over ```title``` field.
 
+So it is possible that inspite of lower boost, ```tags``` field matches might still get be scored higher over ```title``` field. Let's see with an example
+### Documents Data: Listed below are four document’s titles and tags.
+```
+Doc1: 
+title: National awardees of Indian handicrafts to present their art at Heimtextil India & Ambiente India 
+tags: handicrafts, handlooms
+
+Doc2:
+title: Amazon India launches Weavesmart on its marketplace 
+tags: e-commerce, handlooms
+
+Doc3: 
+title: See the best of Artificial Intelligence, 5D tech and more from IIT-D
+tags: AI, handlooms, prosthetics, energy saving
+(Doc3 talks about new advancements in handlooms, prosthetics, energy consumption etc by IIT-D. So, it got the tag handloom)
+
+Doc4:
+title: Weaving out of trouble: Handloom industry looks at Budget 2018 to solve woes
+tags: handloom, budget, economy
+```
 
 
