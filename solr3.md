@@ -52,10 +52,10 @@ defType=dismax
 
 ### Analysis:
 1. The parsed query generated above is **term-centric query** i.e., searches for each user query terms in documents to bias the results having most query terms. (You can find details about field-centric vs term-centric in my article [here](https://spoddutur.github.io/my-notes/solr3)).
-2. For each term i.e., ```Chemotherapy``` and ```Cancer```, dismax computes per-field tf-idf scores and picks max out of them.
-3. Dismax Query for term Chemotherapy:  ```(title:Chemotherapy | tags:Chemotherapy)```
-4. Dismax Query for term Cancer:  ```(title:Cancer | tags:Cancer)```
-5. Analyse Dismax query:
+2. For each term i.e., ```Chemotherapy``` and ```Cancer```, dismax computes per-field tf-idf scores and picks max out of them. So the Dismax Query for our terms will look like this:
+  1. Dismax Query for term Chemotherapy:  ```(title:Chemotherapy | tags:Chemotherapy)```
+  2. Dismax Query for term Cancer:  ```(title:Cancer | tags:Cancer)```
+3. Let's analyse Dismax query for Chemotherapy: ```(title:Chemotherapy | tags:Chemotherapy)```
   1. ```"|"``` operator denotes max operator of dismax
   2. Here, lucene does two things:
     1. Computes td-idf score for the term ```Chemotherapy``` in ```title``` and ```tags``` fields respectively
