@@ -6,7 +6,7 @@ A naive lucene user might conveniently apply field boosts like **`qf=title^10 ta
 - ```tags``` matched documents will come next due to 7 times boost and 
 - ```description``` matched documents will get least precedence.
 
-Main reason for this misconcetion is the assumption that documents will get cumulative score of _**(title-match-score)^7 + (tags-match-score)^7 + (description-match-score)^1**_. 
+Main reason for this misconcetion is the assumption that for _qf=title^10 tags^7 description^1_ query, documents will get cumulative score of _**(title-match-score)^7 + (tags-match-score)^7 + (description-match-score)^1**_. 
 
 ### Discussion: Improper Field Boosts can cause unexpected surprising results
 In this article, am going to discuss about two things:
