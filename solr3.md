@@ -10,8 +10,8 @@ A naive lucene user might conveniently apply field boosts like **`qf=title^10 ta
 
 ### Discussion: Improper Field Boosts can cause unexpected surprising results
 In this article, am going to discuss about two things:
-1. How above mentioned scoring is wrong and 
-2. Inspite of boosting `title` field higher than `tags` field, the final results might show 100’s of good `tags` matches followed by good `title` matches. Following example illustrates this case: 
+1. **Myth1:** How above mentioned scoring is wrong and 
+2. **Myth2:** Inspite of boosting `title` field higher than `tags` field, the final results might show 100’s of good `tags` matches followed by good `title` matches. Following example illustrates this case: 
 
 With **`title^10 tags^7`** field boosts, a search on **`Chemotherapy & Cancer`** can return documents in following ranked order :
 1. Cancer Treatment Options and Technologies
@@ -21,9 +21,11 @@ With **`title^10 tags^7`** field boosts, a search on **`Chemotherapy & Cancer`**
 
 #### Why aren't 3rd and 4rth documents which seem more relevant ranked higher over 2nd?
 
-### Reason behind this is:
+## Understand how scoring works
+To understand the myths mentioned above, its really important to get an understanding on how scoring works.
+### Lucene's Field-Based Scoring:
 Lucene’s tf-idf scores are field-based where-in each field is its own universe.
-Let’s attempt to understand this field-based scores better. 
+Let’s attempt to understand this field-based scores better with a sample query shown below. 
 
 ### Documents Data: Listed below are four document’s titles and tags.
 ```
@@ -86,7 +88,7 @@ markdown```
 ```
 6. Here, we perform **SUM of (Chemotherapy DISMAX Score) and (Cancer DISMAX Score)**
 
-### Either-Or Situation With DisMax:
+### Either-Or Situation to pick Winner With DisMax:
 - As shown above, Dismax picks max scoring field per term.
 ```
 max(chemotherapy-match-score-in-title^10, 
@@ -97,10 +99,15 @@ max(cancer-match-score-in-title^10,
 ```
 Hopefully, this clears why the common misconception of `(title-match-score)^10 + (tag-matching-score)^7` scoring for our query **`title^10 tags^7`** is incorrect.
 
-#### So far we've seen how scoring is done for dismax query. This clears one of the myths mentione in the beginning. Now, with this knowledge, let's further deep dive to understand the second myth which is: `why could there be 100's of good tag field matches before good title field matches.`
+#### So far we've seen how scoring is done for dismax query. This clears one of the myths mentioned in the beginning. Now, with this knowledge, let's further deep dive to understand the second myth which is:
+
+## Myth2
+### Why could there be 100's of good tag field matches before good title field matches.
 
 ### Nature of DisMax on Diverse Fields
-For this, we should understand the nature of dismax when applied on diverse fields. If dismax is applied on GRE and TOEFL score fields, results will always be sorted by GRE score and not by TOEFL because dismax picks max-score per field. In this case, we can pretty much guarantee that: max(GRE(student), TOEFL(student)) == GRE(student). So, there'll be 100's of good GRE score students before good TOEFL score students. This is how the diversity of fields used in query could lead to one field's scores dominating search results.
+For this, we should understand the nature of dismax when applied on diverse fields. If dismax is applied on GRE and TOEFL score fields, results will always be sorted by GRE score and not by TOEFL because dismax picks max-score per field. In this case, we can pretty much guarantee that: 
+```max(GRE(student), TOEFL(student)) == GRE(student)```
+So, there'll be 100's of good GRE score students before good TOEFL score students. This is how the diversity of fields used in query could lead to one field's scores dominating search results.
 
 The same thing can happen with ```tags``` and ```title``` fields where tags scores will be by default higher over title scores. This is because, for text-based fields, field-length plays an important role in tf-idf score. Shorter the text, higher the score.
 - **tags** field is very terse and pointed capturing aboutness of the document. 
