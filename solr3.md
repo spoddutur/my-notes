@@ -6,7 +6,7 @@ A naive lucene user might conveniently apply field boosts like **`qf=title^10 ta
 - ```tags``` matched documents will come next due to 7 times boost and 
 - ```description``` matched documents will get least precedence.
 
-Main reason for this misconcetion is the assumption that for _qf=title^10 tags^7 description^1_ query, documents will get cumulative score of _**(title-match-score)^7 + (tags-match-score)^7 + (description-match-score)^1**_. 
+**Wrong Assumption*:* One of the main reasons for above mentioned misconcetion is the assumption that, for such query, documents will get cumulative score of _**(title-match-score)^7 + (tags-match-score)^7 + (description-match-score)^1**_. 
 
 ### Discussion: Improper Field Boosts can cause unexpected surprising results
 In this article, am going to discuss about two things:
@@ -63,14 +63,14 @@ markdown```
      (title:Cancer | tags:Cancer))```
 
 ### Analysis - How dismax scoring happens:
-1. The parsed query generated above is **term-centric query** i.e., searches for each user query terms in documents to bias the results having most query terms. (You can find details about field-centric vs term-centric in my article [here](https://spoddutur.github.io/my-notes/solr3)).
+1. The parsed query generated above is **term-centric query** i.e., searches for each of the user-query terms in the documents to bias the results having most query terms. (You can find details about field-centric vs term-centric in my article [here](https://spoddutur.github.io/my-notes/solr3)).
 2. For each term i.e., ```Chemotherapy``` and ```Cancer```, dismax computes per-field tf-idf scores and picks max out of them _**So, Dismax is essentially winner-takes-all behaviour with highest scoring field being the winner here**_.
 3. Let's analyse Dismax query for term _Chemotherapy_:
   - Query: ```(title:Chemotherapy | tags:Chemotherapy)```
   - ```"|"``` operator denotes max operator of dismax
   - Here, lucene does two things:
-    * Compute td-idf score for the term ```Chemotherapy``` in ```title``` and ```tags``` fields respectively
-    * Now pick max among the two field's scores as shown below (we apply field boost also here):
+    ..* Compute td-idf score for the term ```Chemotherapy``` in ```title``` and ```tags``` fields respectively
+    ..* Now pick max among the two field's scores as shown below (we apply field boost also here):
 ```
       7.0710677 
       	= max of:
