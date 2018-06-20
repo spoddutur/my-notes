@@ -69,10 +69,10 @@ markdown```
   - Query: ```(title:Chemotherapy | tags:Chemotherapy)```
   - ```"|"``` operator denotes max operator of dismax
   - Here, lucene does two things:
-    1. Compute td-idf score for the term ```Chemotherapy``` in ```title``` and ```tags``` fields respectively
-    2. Boosts title score 10 times
-    3. Boosts tags score 7 times
-    4. Now it picks the max among the two field's scores as shown below:
+      1. Compute td-idf score for the term ```Chemotherapy``` in ```title``` and ```tags``` fields respectively
+      2. Boosts title score 10 times
+      3. Boosts tags score 7 times
+      4. Now it picks the max among the two field's scores as shown below:
 ```
       7.0710677 
       	= max of:
