@@ -70,7 +70,9 @@ markdown```
   - ```"|"``` operator denotes max operator of dismax
   - Here, lucene does two things:
     ..* Compute td-idf score for the term ```Chemotherapy``` in ```title``` and ```tags``` fields respectively
-    ..* Now pick max among the two field's scores as shown below (we apply field boost also here):
+    ..* Boosts title score 10 times
+    ..* Boosts tags score 7 times
+    ..* Now it picks the max among the two field's scores as shown below:
 ```
       7.0710677 
       	= max of:
@@ -79,22 +81,17 @@ markdown```
 ```
 4. Similarly Dismax Query for term Cancer is computed  ```(title:Cancer | tags:Cancer)```
 5. Now the final step of combining both Dismax queries: 
-markdown```
+```
 +((title:Chemotherapy | tags:Chemotherapy) (title:Cancer | tags:Cancer))
 ```.
-Here, we perform **SUM of (Chemotherapy DISMAX Score) and (Cancer DISMAX Score)**
+6. Here, we perform **SUM of (Chemotherapy DISMAX Score) and (Cancer DISMAX Score)**
 
 ### Either-Or Situation With DisMax:
 - As shown above, Dismax picks max scoring field per term.
-- Hence, Dismax Score = Max(Chemotherapy tf-idf score in title,tags fields) + Max(Cancer tf-idf score in title,tags fields)
-- Therefore, for our query ```title^10 tags^7**_```, score will not be 
-markdown```
-(title-match-score)^10 + (tag-matching-score)^7
-``` 
-- Its rather: 
-markdown```
+```
 max(chemotherapy-match-score-in-title^10, chemotherapy-match-score-in-tags^7) + max(cancer-match-score-in-title^10, cancer-match-score-in-tags^7)
 ```
+Hopefully, this clears why the common misconception of (title-match-score)^10 + (tag-matching-score)^7 scoring for our query **`title^10 tags^7`** is incorrect.
 
 #### So far we've seen how scoring is done for dismax query. This clears one of the myths mentione in the beginning. Now, with this knowledge, let's further deep dive to understand the second myth which is: `why could there be 100's of good tag field matches before good title field matches.`
 
