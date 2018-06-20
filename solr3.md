@@ -69,3 +69,14 @@ defType=dismax
 4. Similarly Dismax Query for term Cancer is computed  ```(title:Cancer | tags:Cancer)```
 5. Now the final step of combining both Dismax queries: ```+((title:Chemotherapy | tags:Chemotherapy) (title:Cancer | tags:Cancer))```. Here, we perform **SUM of (Chemotherapy DISMAX Score) and (Cancer DISMAX Score)**
 
+#### So far we've seen how scoring is done for dismax query. Now, with this knowledge, let's further deep dive to understand as to why could there be 100's of good tag field matches before good title field matches.
+
+For this, we should understand the nature of dismax when applied on diverse fields. If dismax is applied on GRE and TOEFL score fields, results will always be sorted by GRE score and not by TOEFL because we can pretty much guarantee that: max(GRE(student), TOEFL(student)) == GRE(student). So, there'll be 100's of good GRE score students before good TOEFL score students. So, the diversity of fields used in query could lead to one field's score dominating search results.
+
+The same thing can happen with ```tags``` and ```title``` fields where tags scores will be by default higher over title scores. This is because, for text-based fields, field-length plays an important role in tf-idf score. Shorter the text, higher the score.
+- **tags** field is very terse and pointed capturing aboutness of the document. 
+- **title** field is more like short text.
+So naturally, ```tags``` field matches can be scored higher over ```title``` field.
+
+
+
