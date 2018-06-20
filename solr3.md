@@ -19,7 +19,7 @@ With **`title^10 tags^7`** field boosts, a search on **`Handlooms`** can return 
 2. Amazon India launches Weavesmart on its marketplace 
 4. Weaving out of trouble: Handloom industry looks at Budget 2018 to solve woes
 
-#### Why aren't 3rd and 4rth documents which seem more relevant ranked higher over 1st and 2nd?
+#### Why aren't 3rd and 4rth documents which seem more relevant for handlooms ranked higher over 1st and 2nd?
 
 ## Understand how scoring works
 To understand the myths mentioned above, its really important to get an understanding on how scoring works.
@@ -95,7 +95,7 @@ The same thing can happen with ```tags``` and ```title``` fields where tags scor
 - **title** field is more like short text.
 
 So it is possible that inspite of lower boost, ```tags``` field matches might still get be scored higher over ```title``` field. Let's see with an example
-### Documents Data: Listed below are four document’s titles and tags.
+### Documents Data: Listed below are four document’s titles and tags in sorted order of their scoring.
 ```
 Doc1: 
 title: National awardees of Indian handicrafts to present their art at Heimtextil India & Ambiente India 
@@ -112,7 +112,12 @@ tags: AI, handlooms, prosthetics, energy saving
 
 Doc4:
 title: Weaving out of trouble: Handloom industry looks at Budget 2018 to solve woes
-tags: handloom, budget, economy
+tags: handloom, budget, economy, employment
 ```
+
+#### SearchQuery: Handlooms
+#### Sort order: Doc1 got the highest score and Doc4 got the lowest
+
+If we actually observe, Doc4 is the only document with Handlooms term in title. 
 
 
