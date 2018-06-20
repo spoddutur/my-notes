@@ -1,7 +1,10 @@
 # Relevancy Tuning with Field Boosts
 
 ### Problem statement:
-A naive lucene user might conveniently apply field boosts like **`qf=title^10 tags^7 description^1`** and assume that search results will be sorted with ```title``` matched documents given 10 times boost, ```tags``` matched documents are given 7 times boost and description comes next.
+A naive lucene user might conveniently apply field boosts like **`qf=title^10 tags^7 description^1`** and assume that 
+- Search results will be sorted with ```title``` matched documents taking highest precedence because of 10 times boost
+- ```tags``` matched documents will come next due to 7 times boost and 
+- ```description``` matched documents will get least precedence.
 
 ### Discussion: Improper Field Boosts can cause unexpected surprising results
 In this article, am going to discuss on how inspite of boosting `title` field higher than `tags` field, the final results might show 100’s of good `tags` matches followed by good `title` matches. Following example illustrates this case: 
@@ -45,21 +48,24 @@ defType=dismax
 ```
 
 ### Parsed Query in Lucene's Syntax:
-- **parserd_query:** 
-```+((DisjunctionMaxQuery((title:Chemotherapy | tags:Chemotherapy)) DisjunctionMaxQuery((title:Cancer | tags:Cancer)))```
-- **parserd_query_tostring:**
-```+((title:Chemotherapy | tags:Chemotherapy) (title:Cancer | tags:Cancer))```
+- **parsed_query:** 
+markdown```
+   +(DisjunctionMaxQuery((title:Chemotherapy | tags:Chemotherapy))
+     DisjunctionMaxQuery((title:Cancer | tags:Cancer))```
+     
+- **parsed_query_tostring:**
+markdown```
+    +((title:Chemotherapy | tags:Chemotherapy)
+     (title:Cancer | tags:Cancer))```
 
-### Analysis:
+### Analysis - How dismax scoring happens:
 1. The parsed query generated above is **term-centric query** i.e., searches for each user query terms in documents to bias the results having most query terms. (You can find details about field-centric vs term-centric in my article [here](https://spoddutur.github.io/my-notes/solr3)).
-2. For each term i.e., ```Chemotherapy``` and ```Cancer```, dismax computes per-field tf-idf scores and picks max out of them. So the Dismax Query for our terms will look like this:
-  1. Dismax Query for term Chemotherapy:  ```(title:Chemotherapy | tags:Chemotherapy)```
-  2. Dismax Query for term Cancer:  ```(title:Cancer | tags:Cancer)```
-3. Let's analyse Dismax query for Chemotherapy: ```(title:Chemotherapy | tags:Chemotherapy)```
-  1. ```"|"``` operator denotes max operator of dismax
-  2. Here, lucene does two things:
-    1. Computes td-idf score for the term ```Chemotherapy``` in ```title``` and ```tags``` fields respectively
-    2. Picks max-score among the two as shown below:
+2. For each term i.e., ```Chemotherapy``` and ```Cancer```, dismax computes per-field tf-idf scores and picks max out of them
+3. Dismax Query for term Chemotherapy:  ```(title:Chemotherapy | tags:Chemotherapy)```. Let's analyse Dismax query for Chemotherapy: 
+  - ```"|"``` operator denotes max operator of dismax
+  - Here, lucene does two things:
+    - Computes td-idf score for the term ```Chemotherapy``` in ```title``` and ```tags``` fields respectively
+    - Picks max-score among the two as shown below:
 ```
       7.0710677 
       	= max of:
