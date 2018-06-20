@@ -81,8 +81,8 @@ markdown```
 5. Now the final step of combining both Dismax queries: ```+((title:Chemotherapy | tags:Chemotherapy) (title:Cancer | tags:Cancer))```. Here, we perform **SUM of (Chemotherapy DISMAX Score) and (Cancer DISMAX Score)**
 
 ### Either-Or Situation With DisMax:
-- Dismax Score = Max(Chemotherapy tf-idf score in title,tags fields) + Max(Cancer tf-idf score in title,tags fields)
-- As shown above, Dismax picks max scoring field per term.
+- As shown above, Dismax Score = Max(Chemotherapy tf-idf score in title,tags fields) + Max(Cancer tf-idf score in title,tags fields)
+- Hence, Dismax picks max scoring field per term.
 - So, for our query _**title^10 tags^7**_, score will not be _**(title-match-score)^10 + (tag-matching-score)^7**_ 
 - Its rather _**max(chemotherapy-match-score-in-title^10, chemotherapy-match-score-in-tags^7) + max(cancer-match-score-in-title^10, cancer-match-score-in-tags^7)**_
 
