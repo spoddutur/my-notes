@@ -60,8 +60,8 @@ markdown```
 
 ### Analysis - How dismax scoring happens:
 1. The parsed query generated above is **term-centric query** i.e., searches for each user query terms in documents to bias the results having most query terms. (You can find details about field-centric vs term-centric in my article [here](https://spoddutur.github.io/my-notes/solr3)).
-2. For each term i.e., ```Chemotherapy``` and ```Cancer```, dismax computes per-field tf-idf scores and picks max out of them
-3. Dismax Query for term Chemotherapy:  ```(title:Chemotherapy | tags:Chemotherapy)```. Let's analyse Dismax query for Chemotherapy: 
+2. For each term i.e., ```Chemotherapy``` and ```Cancer```, dismax computes per-field tf-idf scores and picks max out of them _**Dismax is essentially winner-takes-all behaviour with highest scoring field being the winner here**_.
+3. Let's analyse Dismax query for Chemotherapy:  ```(title:Chemotherapy | tags:Chemotherapy)```
   - ```"|"``` operator denotes max operator of dismax
   - Here, lucene does two things:
     -- Compute td-idf score for the term ```Chemotherapy``` in ```title``` and ```tags``` fields respectively
@@ -74,6 +74,12 @@ markdown```
 ```
 4. Similarly Dismax Query for term Cancer is computed  ```(title:Cancer | tags:Cancer)```
 5. Now the final step of combining both Dismax queries: ```+((title:Chemotherapy | tags:Chemotherapy) (title:Cancer | tags:Cancer))```. Here, we perform **SUM of (Chemotherapy DISMAX Score) and (Cancer DISMAX Score)**
+
+### Either-Or Situation With DisMax:
+- Dismax Score = Max(Chemotherapy tf-idf score in title,tags fields) + Max(Cancer tf-idf score in title,tags fields)
+- As shown above, Dismax picks max scoring field per term.
+- So, for our query _**title^10 tags^7**_, score will not be _**(title-match-score)^10 + (tag-matching-score)^7**_ 
+- Its rather _**max(chemotherapy-match-score-in-title^10, chemotherapy-match-score-in-tags^7) + max(cancer-match-score-in-title^10, cancer-match-score-in-tags^7)**_
 
 #### So far we've seen how scoring is done for dismax query. Now, with this knowledge, let's further deep dive to understand as to why could there be 100's of good tag field matches before good title field matches.
 
