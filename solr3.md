@@ -69,10 +69,10 @@ markdown```
   - Query: ```(title:Chemotherapy | tags:Chemotherapy)```
   - ```"|"``` operator denotes max operator of dismax
   - Here, lucene does two things:
-    ..* Compute td-idf score for the term ```Chemotherapy``` in ```title``` and ```tags``` fields respectively
-    ..* Boosts title score 10 times
-    ..* Boosts tags score 7 times
-    ..* Now it picks the max among the two field's scores as shown below:
+    1. Compute td-idf score for the term ```Chemotherapy``` in ```title``` and ```tags``` fields respectively
+    2. Boosts title score 10 times
+    3. Boosts tags score 7 times
+    4. Now it picks the max among the two field's scores as shown below:
 ```
       7.0710677 
       	= max of:
@@ -83,7 +83,7 @@ markdown```
 5. Now the final step of combining both Dismax queries: 
 ```
 +((title:Chemotherapy | tags:Chemotherapy) (title:Cancer | tags:Cancer))
-```.
+```
 6. Here, we perform **SUM of (Chemotherapy DISMAX Score) and (Cancer DISMAX Score)**
 
 ### Either-Or Situation With DisMax:
