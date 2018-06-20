@@ -64,12 +64,13 @@ markdown```
 
 ### Analysis - How dismax scoring happens:
 1. The parsed query generated above is **term-centric query** i.e., searches for each user query terms in documents to bias the results having most query terms. (You can find details about field-centric vs term-centric in my article [here](https://spoddutur.github.io/my-notes/solr3)).
-2. For each term i.e., ```Chemotherapy``` and ```Cancer```, dismax computes per-field tf-idf scores and picks max out of them _**Dismax is essentially winner-takes-all behaviour with highest scoring field being the winner here**_.
-3. Let's analyse Dismax query for Chemotherapy:  ```(title:Chemotherapy | tags:Chemotherapy)```
+2. For each term i.e., ```Chemotherapy``` and ```Cancer```, dismax computes per-field tf-idf scores and picks max out of them _**So, Dismax is essentially winner-takes-all behaviour with highest scoring field being the winner here**_.
+3. Let's analyse Dismax query for term _Chemotherapy_:
+  - Query: ```(title:Chemotherapy | tags:Chemotherapy)```
   - ```"|"``` operator denotes max operator of dismax
   - Here, lucene does two things:
-    -- Compute td-idf score for the term ```Chemotherapy``` in ```title``` and ```tags``` fields respectively
-    -- Now pick max among the two field's scores as shown below (we apply field boost also here):
+    * Compute td-idf score for the term ```Chemotherapy``` in ```title``` and ```tags``` fields respectively
+    * Now pick max among the two field's scores as shown below (we apply field boost also here):
 ```
       7.0710677 
       	= max of:
