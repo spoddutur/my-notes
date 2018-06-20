@@ -89,9 +89,13 @@ markdown```
 ### Either-Or Situation With DisMax:
 - As shown above, Dismax picks max scoring field per term.
 ```
-max(chemotherapy-match-score-in-title^10, chemotherapy-match-score-in-tags^7) + max(cancer-match-score-in-title^10, cancer-match-score-in-tags^7)
+max(chemotherapy-match-score-in-title^10, 
+    chemotherapy-match-score-in-tags^7)
+              + 
+max(cancer-match-score-in-title^10,
+      cancer-match-score-in-tags^7)
 ```
-Hopefully, this clears why the common misconception of (title-match-score)^10 + (tag-matching-score)^7 scoring for our query **`title^10 tags^7`** is incorrect.
+Hopefully, this clears why the common misconception of `(title-match-score)^10 + (tag-matching-score)^7` scoring for our query **`title^10 tags^7`** is incorrect.
 
 #### So far we've seen how scoring is done for dismax query. This clears one of the myths mentione in the beginning. Now, with this knowledge, let's further deep dive to understand the second myth which is: `why could there be 100's of good tag field matches before good title field matches.`
 
