@@ -64,8 +64,8 @@ markdown```
 3. Dismax Query for term Chemotherapy:  ```(title:Chemotherapy | tags:Chemotherapy)```. Let's analyse Dismax query for Chemotherapy: 
   - ```"|"``` operator denotes max operator of dismax
   - Here, lucene does two things:
-    - Computes td-idf score for the term ```Chemotherapy``` in ```title``` and ```tags``` fields respectively
-    - Picks max-score among the two as shown below:
+    -- Compute td-idf score for the term ```Chemotherapy``` in ```title``` and ```tags``` fields respectively
+    -- Now pick max among the two field's scores as shown below (we apply field boost also here):
 ```
       7.0710677 
       	= max of:
