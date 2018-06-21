@@ -20,8 +20,7 @@ With **`title^10 tags^7`** field boosts, a search on **`Handlooms`** can return 
 2. Amazon India launches Weavesmart on its marketplace 
 4. Weaving out of trouble: Handloom industry looks at Budget 2018 to solve woes
 
-#### Why aren't 3rd and 4rth documents which seem more relevant for handlooms ranked higher over 1st and 2nd?
-Despite having `Handloom match in title field` which is boosted highest (i.e., 10 times), `Doc4 is scored lower than other documents`. Why? 
+**Note:** Despite having `Handloom match in title field` which is boosted highest, `Doc4 is scored lower than other documents`. Why would `title` matched document get lower score over other documents inspite of title field having highest boost of 10? 
 
 ## Understand how scoring works
 To understand the facts mentioned above, its really important to get an understanding on how scoring works.
