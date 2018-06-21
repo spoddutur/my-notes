@@ -52,13 +52,13 @@ defType=dismax
 2. There are two terms in our search query: `Chemotherapy` and `Cancer`
 3. For each term i.e., ```Chemotherapy``` and ```Cancer```, dismax computes per-field tf-idf scores and picks max out of them _**So, Dismax is essentially winner-takes-all behaviour with highest scoring field being the winner here**_.
 4. Let's analyse Dismax query for term _Chemotherapy_:
-  - Query: ```(title:Chemotherapy | tags:Chemotherapy)```
-  - ```"|"``` operator denotes max operator of dismax
-  - Here, lucene does four things:
-      -- 1. Compute td-idf score for the term ```Chemotherapy``` in ```title``` and ```tags``` fields respectively
-      -- 2. Boosts title score 10 times
-      -- 3. Boosts tags score 7 times
-      -- 4. Now it picks the max among the two field's scores as shown below:
+   1. Query: ```(title:Chemotherapy | tags:Chemotherapy)```
+   2. ```"|"``` operator denotes max operator of dismax
+   3. Here, lucene does four things:
+      1. Compute td-idf score for the term ```Chemotherapy``` in ```title``` and ```tags``` fields respectively
+      2. Boosts title score 10 times
+      3. Boosts tags score 7 times
+      4. Now it picks the max among the two field's scores as shown below:
 ```
       tf-idf score for chemotherapy
          = 7.0710677 
