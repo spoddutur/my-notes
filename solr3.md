@@ -25,7 +25,7 @@ With **`title^10 tags^7`** field boosts, a search on **`Handlooms`** can return 
 ## Understand how scoring works
 To understand the facts mentioned above, its really important to get an understanding on how scoring works.
 ### Lucene's Field-Based Scoring:
-Lucene’s tf-idf scores are field-based where-in each field is its own universe.
+**Lucene’s tf-idf scores are field-based where-in each field is its own universe.**
 Let’s attempt to understand this field-based scores better with a sample query shown below. 
 
 ### Our SearchQuery:
@@ -39,12 +39,13 @@ defType=dismax
 - **parsed_query:** 
 ```
    +(DisjunctionMaxQuery((title:Chemotherapy | tags:Chemotherapy))
-     DisjunctionMaxQuery((title:Cancer | tags:Cancer))```
-     
+     DisjunctionMaxQuery((title:Cancer | tags:Cancer))
+```  
 - **parsed_query_tostring:**
 ```
     +((title:Chemotherapy | tags:Chemotherapy)
-     (title:Cancer | tags:Cancer))```
+     (title:Cancer | tags:Cancer))
+```
 
 ### Analysis - How dismax scoring happens:
 1. The parsed query generated above is **term-centric query** i.e., searches for each of the user-query terms in the documents to bias the results having most query terms. (You can find details about field-centric vs term-centric in my article [here](https://spoddutur.github.io/my-notes/solr3)).
