@@ -74,7 +74,7 @@ defType=dismax
 7. Here, we perform **SUM of (Chemotherapy DISMAX Score) and (Cancer DISMAX Score)**
 
 ### Either-Or Situation to pick Winner With DisMax:
-- As shown above, Dismax picks max scoring field per term.
+- We've see that Dismax picks max scoring field per term. So, in reality the scoring happens as shown below:
 ```
 max(chemotherapy-match-score-in-title^10, 
     chemotherapy-match-score-in-tags^7)
@@ -82,14 +82,20 @@ max(chemotherapy-match-score-in-title^10,
 max(cancer-match-score-in-title^10,
       cancer-match-score-in-tags^7)
 ```
-Hopefully, this clears why the common misconception of `(title-match-score)^10 + (tag-matching-score)^7` scoring for our query **`title^10 tags^7`** is incorrect.
+
+Hopefully, this clears why the scoring expectation shown below doesnt happen:
+**Expectation:** `(title-match-score)^10 + (tag-matching-score)^7` scoring for our query **`title^10 tags^7`**.
 
 ### TIE param - Wait, there's an option to make the scoring match your expectation
-Dismax query supports `tie` param. 
+Yes, there's an alternative to still meet the expectation mentioned above:
+Dismax query supports [tie](https://lucene.apache.org/solr/guide/6_6/the-dismax-query-parser.html#TheDisMaxQueryParser-Thetie_TieBreaker_Parameter) param. With tie, dismax scoring happens like this:
+```
 dismax total score = max(field scores) + tie * sum(other field scores)
-
-
-Also, I added a tie=1.0 parameter to the DisMax scoring, so that the total relevancy score of any given record will be the sum of contributing field scores, like I expected in the first place.
+```
+- Essentially, the tie parameter allows one to control how the lower scoring fields affects score for a given word.
+- A value of "0.0", which is the default value, makes the query a pure **disjunction max query** where only the maximum scoring sub query contributes to the final score. 
+- A value of "1.0" makes the query a pure **disjunction sum query** where it doesn’t matter what the maximum scoring sub query is, because the final score will be the sum of the subquery scores. 
+- **Recommended value**: Typically a low value, such as 0.1, is useful.
 
 #### So far we've seen how scoring is done for dismax query. This clears one of the facts mentioned in the beginning. Now, with this knowledge, let's further deep dive to understand the second fact.
 
@@ -138,4 +144,6 @@ tags: handloom, budget, economy, employment
 - Documents with lesser tags got higher scores (Doc1, Doc2 and Doc3)
 - Doc4 has Handloom mention in title. But title field is longer than tags. So, the field-length-norm factor will be lower causing title-match score to be lesser than tags-match score.
 
+### Conclusion
+Also, I added a tie=1.0 parameter to the DisMax scoring, so that the total relevancy score of any given record will be the sum of contributing field scores, like I expected in the first place.
 
