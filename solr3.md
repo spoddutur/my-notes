@@ -165,7 +165,7 @@ tags: handloom, budget, economy, employment
     1. **Handloom match in title:** will have an idf of 1/30 as handloom appeared in title field for 30 documents.
     2. **Handloom match in tags:** will have lower idf of 1/30 as handloom appeared in tags field for 30 documents..
 5. **field-length-normalization** is higher for tags field because its terser than title.
-6. So, with above assumptions, tf & idf are same for both fields. field-length-normalization is the deciding winner and its  favoring tags field because its terse. shorte th field length higher the field-length-normalization is.
+6. So, with above assumptions, tf & idf are same for both fields. field-length-normalization is the deciding winner and its  favoring tags field because its terse. shorte the field length higher the field-length-normalization is.
 7. Therefore, documents with lesser tags will get higher scores (Doc1, Doc2 and Doc3).
 8. Doc4 has Handloom mention in title. But title field is longer than tags. So, the field-length-normalization factor will be lower causing title-match score to be lesser than tags-match score. This is why its ranked lowest.
 
