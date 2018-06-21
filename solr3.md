@@ -49,15 +49,16 @@ defType=dismax
 
 ### Analysis - How dismax scoring happens:
 1. The parsed query generated above is **term-centric query** i.e., searches for each of the user-query terms in the documents to bias the results having most query terms. (You can find details about field-centric vs term-centric in my article [here](https://spoddutur.github.io/my-notes/solr3)).
-2. For each term i.e., ```Chemotherapy``` and ```Cancer```, dismax computes per-field tf-idf scores and picks max out of them _**So, Dismax is essentially winner-takes-all behaviour with highest scoring field being the winner here**_.
-3. Let's analyse Dismax query for term _Chemotherapy_:
+2. There are two terms in our search query: `Chemotherapy` and `Cancer`
+3. For each term i.e., ```Chemotherapy``` and ```Cancer```, dismax computes per-field tf-idf scores and picks max out of them _**So, Dismax is essentially winner-takes-all behaviour with highest scoring field being the winner here**_.
+4. Let's analyse Dismax query for term _Chemotherapy_:
   - Query: ```(title:Chemotherapy | tags:Chemotherapy)```
   - ```"|"``` operator denotes max operator of dismax
   - Here, lucene does four things:
-            1. Compute td-idf score for the term ```Chemotherapy``` in ```title``` and ```tags``` fields respectively
-            2. Boosts title score 10 times
-            3. Boosts tags score 7 times
-            4. Now it picks the max among the two field's scores as shown below:
+      -- 1. Compute td-idf score for the term ```Chemotherapy``` in ```title``` and ```tags``` fields respectively
+      -- 2. Boosts title score 10 times
+      -- 3. Boosts tags score 7 times
+      -- 4. Now it picks the max among the two field's scores as shown below:
 ```
       tf-idf score for chemotherapy
          = 7.0710677 
@@ -65,12 +66,12 @@ defType=dismax
       	  7.0710677 = title:Chemotherapy, product of:(10.0=boost and 0.70710677=tf-idf)
       	  4.9497474 = tags:Chemotherapy, product of:(7.0=boost and 0.70710677=tf-idf)
 ```
-4. Similarly Dismax Query for the term Cancer is computed  ```(title:Cancer | tags:Cancer)```
-5. Now the final step of combining both Dismax queries: 
+5. Similarly Dismax Query for the term Cancer is computed  ```(title:Cancer | tags:Cancer)```
+6. Now the final step of combining both Dismax queries: 
 ```
 +((title:Chemotherapy | tags:Chemotherapy) (title:Cancer | tags:Cancer))
 ```
-6. Here, we perform **SUM of (Chemotherapy DISMAX Score) and (Cancer DISMAX Score)**
+7. Here, we perform **SUM of (Chemotherapy DISMAX Score) and (Cancer DISMAX Score)**
 
 ### Either-Or Situation to pick Winner With DisMax:
 - As shown above, Dismax picks max scoring field per term.
