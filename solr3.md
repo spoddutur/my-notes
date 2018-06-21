@@ -35,7 +35,22 @@ qf=title^10 tags^7
 defType=dismax
 ```
 
+### Wrong Scoring Expectation
+```
+(title-match-score)^10 + (tag-matching-score)^7 scoring for our query
+```
+
+### Scoring that happens in reality
+```
+max(chemotherapy-match-score-in-title^10, 
+    chemotherapy-match-score-in-tags^7)
+              + 
+max(cancer-match-score-in-title^10,
+      cancer-match-score-in-tags^7)
+```
+
 ### Parsed Query in Lucene's Syntax:
+- Now, let's understand how scoring is done in reality for this query starting from how this is parsed into lucene's syntax.
 - **parsed_query:** 
 ```
    +(DisjunctionMaxQuery((title:Chemotherapy | tags:Chemotherapy))
@@ -74,7 +89,12 @@ defType=dismax
 7. Here, we perform **SUM of (Chemotherapy DISMAX Score) and (Cancer DISMAX Score)**
 
 ### Either-Or Situation to pick Winner With DisMax:
-- We've see that Dismax picks max scoring field per term. So, in reality the scoring happens as shown below:
+1. We've see that Dismax picks max scoring field per term. 
+2. Its clear winner-takes-all behaviour (in this case, its the winning field that contributes to score).
+3. This is because, Dismax was designed to solve "Finding Needle in HayStack". Its not good in finding "Hay in HayStack".
+2. With this, we can see clearly:
+   1. Why the expected scoring mentioned above is wrong and 
+   2. Why in reality, the scoring is done the way it is:
 ```
 max(chemotherapy-match-score-in-title^10, 
     chemotherapy-match-score-in-tags^7)
@@ -83,17 +103,14 @@ max(cancer-match-score-in-title^10,
       cancer-match-score-in-tags^7)
 ```
 
-Hopefully, this clears why the scoring expectation shown below doesnt happen:
-
-**Expectation:** `(title-match-score)^10 + (tag-matching-score)^7` scoring for our query **`title^10 tags^7`**.
-
-### TIE param - Wait, there's an option to make the scoring match your expectation
+### TIE param - Wait, there's an option to still make the scoring match your expectation
 Yes, there's an alternative to still meet the expectation mentioned above:
 Dismax query supports [tie](https://lucene.apache.org/solr/guide/6_6/the-dismax-query-parser.html#TheDisMaxQueryParser-Thetie_TieBreaker_Parameter) param. With tie, dismax scoring happens like this:
 ```
 dismax total score = max(field scores) + tie * sum(other field scores)
 ```
 - Essentially, the tie parameter allows one to control how the lower scoring fields affects score for a given word.
+- Without tie, only the winner dictates scoring results.
 - A value of "0.0", which is the default value, makes the query a pure **disjunction max query** where only the maximum scoring sub query contributes to the final score. 
 - A value of "1.0" makes the query a pure **disjunction sum query** where it doesn’t matter what the maximum scoring sub query is, because the final score will be the sum of the subquery scores. 
 - **Recommended value**: Typically a low value, such as 0.1, is useful.
@@ -147,5 +164,9 @@ tags: handloom, budget, economy, employment
 - Doc4 has Handloom mention in title. But title field is longer than tags. So, the field-length-norm factor will be lower causing title-match score to be lesser than tags-match score.
 
 ### Conclusion
-Also, I added a tie=1.0 parameter to the DisMax scoring, so that the total relevancy score of any given record will be the sum of contributing field scores, like I expected in the first place.
+- Dismax is designed to find "Needle in HayStack". So, only the winner will dictate scoring results.
+- Despite having highest field boost, if that specific field is not winner,then it will have zero contribution by default to dismax scoring results. This might lead to surprising unexpected results.
+- However, one can change dismax behaviour using tie param.
+- With tie, `total score = max(field scores) + tie * sum(other field scores)`
+- tie=1.0 parameter to the DisMax scoring, changes the total relevancy score of any given record to be the sum of contributing field scores.
 
