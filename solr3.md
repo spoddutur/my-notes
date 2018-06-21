@@ -84,12 +84,13 @@ Hopefully, this clears why the common misconception of `(title-match-score)^10 +
 #### So far we've seen how scoring is done for dismax query. This clears one of the facts mentioned in the beginning. Now, with this knowledge, let's further deep dive to understand the second fact.
 
 ## Fact2
-### Why could there be 100's of good tag field matches before good title field matches.
 Inspite of boosting `title` field higher than `tags` field, the final results might show 100’s of good `tags` matches followed by good `title` matches.
+#### Why could there be 100's of good tag field matches before good title field matches.
 
 ### Diversity of Fields with Dismax
 For this, we should understand the nature of dismax when applied on diverse fields. If dismax is applied on GRE and TOEFL score fields, results will always be sorted by GRE score and not by TOEFL because dismax picks max-score per field. In this case, we can pretty much guarantee that: 
 ```max(GRE(student), TOEFL(student)) == GRE(student)```
+
 So, there'll be 100's of good GRE score students before good TOEFL score students. This is how the diversity of fields used in query could lead to one field's scores dominating search results.
 
 The same thing can happen with ```tags``` and ```title``` fields where tags scores will be by default higher over title scores. Reason for tags field getting higher tf-idf scores could be:
@@ -112,7 +113,7 @@ tags: e-commerce, handlooms
 
 Doc3: 
 title: See the best of Artificial Intelligence, 5D tech and more from IIT-D
-tags: AI, handlooms, energy, machine learning
+tags: AI, handlooms, energy
 (Doc3 talks about new advancements in handlooms, energy consumption etc by IIT-D. So, it got the tag handloom)
 
 Doc4:
@@ -124,8 +125,7 @@ tags: handloom, budget, economy, employment
 #### Analysis:
 - If we actually observe, Doc4 is the only document with Handlooms term in the title. 
 - Doc1, Doc2 and Doc3 have handlooms in tag
-- Lesser tagged Documents got highest scores (Doc1 and Doc2)
-- Doc3 has got same number of tags as Doc4.
+- Documents with lesser tags got higher scores (Doc1, Doc2 and Doc3)
 - Doc4 has Handloom mention in title. But title field is longer than tags. So, the field-length-norm factor will be lower causing title-match score to be lesser than tags-match score.
 
 
