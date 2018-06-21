@@ -84,6 +84,7 @@ max(cancer-match-score-in-title^10,
 ```
 
 Hopefully, this clears why the scoring expectation shown below doesnt happen:
+
 **Expectation:** `(title-match-score)^10 + (tag-matching-score)^7` scoring for our query **`title^10 tags^7`**.
 
 ### TIE param - Wait, there's an option to make the scoring match your expectation
@@ -136,8 +137,9 @@ Doc4:
 title: Weaving out of trouble: Handloom industry looks at Budget 2018 to solve woes
 tags: handloom, budget, economy, employment
 ```
-#### SearchQuery: Handlooms
-#### Sort order: Doc1 got the highest score and Doc4 got the lowest
+- **SearchQuery:** Handlooms 
+- **Sort order:** Doc1 got the highest score and Doc4 got the lowest
+
 #### Analysis:
 - If we actually observe, Doc4 is the only document with Handlooms term in the title. 
 - Doc1, Doc2 and Doc3 have handlooms in tag
