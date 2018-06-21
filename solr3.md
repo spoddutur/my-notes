@@ -1,14 +1,14 @@
 # Relevancy Tuning with Field Boosts
 
-### Problem statement:
+### Problem statement: Myth
 A naive lucene user might conveniently apply field boosts like **`qf=title^10 tags^7 description^1`** and assume that 
 - Search results will be sorted with ```title``` matched documents taking highest precedence because of 10 times boost
 - ```tags``` matched documents will come next due to 7 times boost and 
 - ```description``` matched documents will get least precedence.
 
-**Wrong Assumption*:* One of the main reasons for above mentioned misconcetion is the assumption that, for such query, documents will get cumulative score of _**(title-match-score)^7 + (tags-match-score)^7 + (description-match-score)^1**_. 
+**Wrong Assumption**: One of the main reasons for above mentioned misconcetion is the assumption that, for such query, documents will get cumulative score of _**(title-match-score)^7 + (tags-match-score)^7 + (description-match-score)^1**_. 
 
-### Discussion: Improper Field Boosts can cause unexpected surprising results
+### Improper Field Boosts can cause unexpected surprising results
 In this article, am going to discuss about two things:
 1. **Fact1:** How above mentioned scoring is wrong and 
 2. **Fact2:** Inspite of boosting `title` field higher than `tags` field, the final results might show 100’s of good `tags` matches followed by good `title` matches. Following example illustrates this case: 
@@ -20,6 +20,7 @@ With **`title^10 tags^7`** field boosts, a search on **`Handlooms`** can return 
 4. Weaving out of trouble: Handloom industry looks at Budget 2018 to solve woes
 
 #### Why aren't 3rd and 4rth documents which seem more relevant for handlooms ranked higher over 1st and 2nd?
+Despite having `Handloom match in title field` which is boosted highest (i.e., 10 times), `Doc4 is scored lower than other documents`. Why? 
 
 ## Understand how scoring works
 To understand the facts mentioned above, its really important to get an understanding on how scoring works.
@@ -81,6 +82,13 @@ max(cancer-match-score-in-title^10,
 ```
 Hopefully, this clears why the common misconception of `(title-match-score)^10 + (tag-matching-score)^7` scoring for our query **`title^10 tags^7`** is incorrect.
 
+### TIE param - Wait, there's an option to make the scoring match your expectation
+Dismax query supports `tie` param. 
+dismax total score = max(field scores) + tie * sum(other field scores)
+
+
+Also, I added a tie=1.0 parameter to the DisMax scoring, so that the total relevancy score of any given record will be the sum of contributing field scores, like I expected in the first place.
+
 #### So far we've seen how scoring is done for dismax query. This clears one of the facts mentioned in the beginning. Now, with this knowledge, let's further deep dive to understand the second fact.
 
 ## Fact2
@@ -127,6 +135,5 @@ tags: handloom, budget, economy, employment
 - Doc1, Doc2 and Doc3 have handlooms in tag
 - Documents with lesser tags got higher scores (Doc1, Doc2 and Doc3)
 - Doc4 has Handloom mention in title. But title field is longer than tags. So, the field-length-norm factor will be lower causing title-match score to be lesser than tags-match score.
-
 
 
