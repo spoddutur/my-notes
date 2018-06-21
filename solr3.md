@@ -175,5 +175,5 @@ tags: handloom, budget, economy, employment
 - However, one can change dismax behaviour using tie param.
 - With tie, `total score = max(field scores) + tie * sum(other field scores)`
 - tie=1.0 parameter to the DisMax scoring, changes the total relevancy score of any given record to be the sum of contributing field scores.
-- We've also illustrated how the diversity of fields impact dismax search results. We illustrated this with an example of how dismax search results can list 100's of good GRE score students before listing any good TOEFL score students.
+- We've also illustrated how the diversity of fields impact dismax search results. We illustrated this with an example of how dismax search results can list 100's of good GRE score students before listing any good TOEFL score students. In other words, in this case, search results will be dominated with GRE students over TOEFL students.
 - Hopefully, this article gave a better understand on how to play with field boosts next time when you are performing relevancy tuning of your search results. These are no hardset rules to tune relevancy because as we have seen, it depends on a lot of characteristics of your data corpus. These are more like guidelines to be aware of to make better choices and avoid surprises in your search results. Good luck with your relevancy Tuning!!
